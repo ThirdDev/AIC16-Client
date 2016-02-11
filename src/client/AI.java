@@ -23,7 +23,7 @@ public class AI {
             Node[] neighbours = source.getNeighbours();
             if (neighbours.length > 0) {
                 try {
-
+                    ahmadalli.layer1Move(world,source, neighbours);
                 }
                 catch(Exception e) {
                     moveRandomly(world,source,neighbours);
