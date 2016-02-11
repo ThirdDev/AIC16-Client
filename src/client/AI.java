@@ -16,7 +16,6 @@ public class AI {
 
     public void doTurn(World world) {
         // fill this method, we've presented a stupid AI for example!
-        System.out.println(world.getMyID());
         Node[] myNodes = world.getMyNodes();
         for (Node source : myNodes) {
             // get neighbours
