@@ -14,12 +14,12 @@ public class ahmadalli {
         System.out.println("It's a test");
     }
 
-    public static ArrayList<Node> getEnemyNeighbors(Node node)
+    public static ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors)
     {
         ArrayList<Node> nodes= new ArrayList<>();
         for(Node neighbor:node.getNeighbours())
         {
-            if(neighbor.getOwner()!=node.getOwner())
+            if(neighbor.getOwner()!=node.getOwner()|| (emptyNeighbors&&neighbor.getOwner()==-1))
             {
                 nodes.add(neighbor);
             }
