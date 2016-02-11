@@ -6,4 +6,7 @@ package client.MST;
 public class constants { //todo: rename coefficients
     public static double c1 = 1/2;
     public static double c2 = 3/4;
+
+    public static int c3 = 10;
+    public static int c4 = 30;
 }
