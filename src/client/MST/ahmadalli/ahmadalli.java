@@ -13,7 +13,7 @@ public class ahmadalli {
         System.out.println("It's a test");
     }
 
-    public static Node[] getEnemyNeighbors(Node node)
+    public static ArrayList<Node> getEnemyNeighbors(Node node)
     {
         ArrayList<Node> nodes= new ArrayList<>();
         for(Node neighbor:node.getNeighbours())
@@ -23,12 +23,11 @@ public class ahmadalli {
                 nodes.add(neighbor);
             }
         }
-        if(nodes.size()!=0)
-            return (Node[])nodes.toArray();
-        return null;
+
+       return nodes;
     }
 
-    public static Node[] getFriendlyNeighbors(Node node)
+    public static ArrayList<Node> getFriendlyNeighbors(Node node,boolean emptyNeighbors)
     {
         ArrayList<Node> nodes= new ArrayList<>();
         for(Node neighbor:node.getNeighbours())
@@ -39,7 +38,7 @@ public class ahmadalli {
             }
         }
 
-        return (Node[])nodes.toArray();
+        return nodes;
     }
 
     public static int getNodeState(Node node)
