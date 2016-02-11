@@ -28,7 +28,7 @@ public class ahmadalli {
        return nodes;
     }
 
-    public static ArrayList<Node> getFriendlyNeighbors(Node node,boolean emptyNeighbors)
+    public static ArrayList<Node> getFriendlyNeighbors(Node node, boolean emptyNeighbors)
     {
         ArrayList<Node> nodes= new ArrayList<>();
         for(Node neighbor:node.getNeighbours())
