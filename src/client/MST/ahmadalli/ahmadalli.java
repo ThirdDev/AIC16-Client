@@ -61,7 +61,7 @@ public class ahmadalli {
                 weakest = neighbor;
             }
         }
-        
+
         if (weakest != null && weakest.getArmyCount() <= ahmadalli.getNodeState(source)) {
             world.moveArmy(source, weakest, (int) ((double)source.getArmyCount() * constants.c1));
         } else {
