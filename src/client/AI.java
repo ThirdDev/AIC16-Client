@@ -16,8 +16,6 @@ import client.model.Node;
  */
 public class AI {
     public void doTurn(World world) {
-        int myID= world.getMyID();
-
         // fill this method, we've presented a stupid AI for example!
         Node[] myNodes = world.getMyNodes();
         for (Node source : myNodes) {
@@ -25,27 +23,7 @@ public class AI {
             Node[] neighbours = source.getNeighbours();
             if (neighbours.length > 0) {
 
-                Node weakest = neighbours[0];
-
-                for(Node neighbor: ahmadalli.getEnemyNeighbors(source))
-                {
-                    //will make sure that if there's an enemy node, the weakest will be the enemy
-                    if(weakest.getOwner()==myID&&neighbor.getOwner()!=myID)
-                    {
-                        weakest=neighbor;
-                    }
-                    if(neighbor.getOwner()!=myID&& neighbor.getArmyCount()>weakest.getArmyCount())
-                    {
-                        weakest=neighbor;
-                    }
                 }
-
-                if(weakest.getOwner() != myID &&  weakest.getArmyCount() <= ahmadalli.getNodeState(source)) {
-                    world.moveArmy(source, weakest,(int)(source.getArmyCount() * constants.c1));
-                }
-                else if(weakest.getOwner() == myID){
-                    world.moveArmy(source, neighbours[(int)(neighbours.length * Math.random())],
-                            (int)(source.getArmyCount() * constants.c2));
                 }
             }
         }
