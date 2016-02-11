@@ -9,11 +9,6 @@ import java.util.ArrayList;
  * Created by me on 11/02/2016.
  */
 public class ahmadalli {
-    public static void test()
-    {
-        System.out.println("It's a test");
-    }
-
     public static ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors)
     {
         ArrayList<Node> nodes= new ArrayList<>();
@@ -49,7 +44,6 @@ public class ahmadalli {
             return 0;
         if(armyCount <= constants.c4)
             return 1;
-
         return 2;
     }
 
