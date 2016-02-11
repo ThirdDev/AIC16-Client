@@ -1,7 +1,7 @@
 package client.MST.ahmadalli;
 
 import client.model.Node;
-
+import client.MST.constants;
 import java.util.ArrayList;
 
 /**
@@ -39,6 +39,17 @@ public class ahmadalli {
         }
 
         return (Node[])nodes.toArray();
+    }
+
+    public static int getNodeState(Node node)
+    {
+        int armyCount = node.getArmyCount();
+        if(armyCount <= constants.c3)
+            return 0;
+        if(armyCount <= constants.c4)
+            return 1;
+
+        return 2;
     }
 }
 
