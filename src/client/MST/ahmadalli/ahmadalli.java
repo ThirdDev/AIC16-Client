@@ -23,8 +23,9 @@ public class ahmadalli {
                 nodes.add(neighbor);
             }
         }
-
-        return (Node[])nodes.toArray();
+        if(nodes.size()!=0)
+            return (Node[])nodes.toArray();
+        return null;
     }
 
     public static Node[] getFriendlyNeighbors(Node node)
