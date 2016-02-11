@@ -32,7 +32,7 @@ public class ahmadalli {
         ArrayList<Node> nodes= new ArrayList<>();
         for(Node neighbor:node.getNeighbours())
         {
-            if(neighbor.getOwner()==node.getOwner())
+            if(neighbor.getOwner()==node.getOwner()||(emptyNeighbors&&neighbor.getOwner()==-1))
             {
                 nodes.add(neighbor);
             }
