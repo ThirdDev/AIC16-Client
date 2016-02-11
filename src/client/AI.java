@@ -22,8 +22,11 @@ public class AI {
             // get neighbours
             Node[] neighbours = source.getNeighbours();
             if (neighbours.length > 0) {
+                try {
 
                 }
+                catch(Exception e) {
+                    moveRandomly(world,source,neighbours);
                 }
             }
         }
