@@ -52,4 +52,11 @@ public class AI {
 
     }
 
+    private void moveRandomly(World world, Node source, Node[] neighbours)
+    {
+        // select a random neighbour
+        Node destination = neighbours[(int) (neighbours.length * Math.random())];
+        // move half of the node's army to the neighbor node
+        world.moveArmy(source, destination, source.getArmyCount()/2);
+    }
 }
