@@ -32,6 +32,17 @@ public class Ahmadalli {
         return nodes;
     }
 
+    public static ArrayList<Node> getOwnerlessNeighbors(Node node) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Node neighbor : node.getNeighbours()) {
+            if (neighbor.getOwner() == -1) {
+                nodes.add(neighbor);
+            }
+        }
+
+        return nodes;
+    }
+
     public static int getNodeState(Node node) {
         int armyCount = node.getArmyCount();
         if (armyCount <= constants.c3)
