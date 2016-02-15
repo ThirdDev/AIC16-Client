@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by me on 11/02/2016.
  */
 public class Ahmadalli {
-    public static ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors)
+    public  ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors)
     {
         ArrayList<Node> nodes= new ArrayList<>();
         for(Node neighbor:node.getNeighbours())
@@ -23,7 +23,7 @@ public class Ahmadalli {
        return nodes;
     }
 
-    public static ArrayList<Node> getFriendlyNeighbors(Node node, boolean emptyNeighbors)
+    public  ArrayList<Node> getFriendlyNeighbors(Node node, boolean emptyNeighbors)
     {
         ArrayList<Node> nodes= new ArrayList<>();
         for(Node neighbor:node.getNeighbours())
@@ -37,7 +37,7 @@ public class Ahmadalli {
         return nodes;
     }
 
-    public static int getNodeState(Node node)
+    public  int getNodeState(Node node)
     {
         int armyCount = node.getArmyCount();
         if(armyCount <= constants.c3)
@@ -47,7 +47,7 @@ public class Ahmadalli {
         return 2;
     }
 
-    public static void layer1Move(World world, Node source){
+    public  void layer1Move(World world, Node source){
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source,true)) {
@@ -56,10 +56,10 @@ public class Ahmadalli {
             }
         }
 
-        if (weakest != null && weakest.getArmyCount() <= ahmadalli.getNodeState(source)) {
+        if (weakest != null && weakest.getArmyCount() <= getNodeState(source)) {
             world.moveArmy(source, weakest, (int) ((double)source.getArmyCount() * constants.c1));
         } else {
-            ArrayList<Node> friendlyNeighbors = ahmadalli.getFriendlyNeighbors(source, true);
+            ArrayList<Node> friendlyNeighbors = getFriendlyNeighbors(source, true);
             if (friendlyNeighbors.size() > 0) {
                 world.moveArmy(source, friendlyNeighbors.get((int) (friendlyNeighbors.size() * Math.random())),
                         (int) (source.getArmyCount() * constants.c2));
@@ -67,7 +67,7 @@ public class Ahmadalli {
         }
     }
 
-    public static boolean isBorderNode(Node node)
+    public  boolean isBorderNode(Node node)
     {
         try {
             int ownerId=node.getOwner();
@@ -82,7 +82,7 @@ public class Ahmadalli {
 
     }
 
-    public static ArrayList<Node> getBorderNodes(World world)
+    public ArrayList<Node> getBorderNodes(World world)
     {
         ArrayList<Node> nodes=new ArrayList<>();
         for(Node node:world.getMyNodes()){
@@ -93,5 +93,10 @@ public class Ahmadalli {
         }
         return nodes;
     }
+    
+    public static void logException(Exception e){
+        System.out.println(e.getMessage());
+    }
+
 }
 
