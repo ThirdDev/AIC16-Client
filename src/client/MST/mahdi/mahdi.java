@@ -20,4 +20,26 @@ public class Mahdi {
         minimumRecommendedForceInBorders++;
     }
 
+    public ArrayList<Node> getWeakBorderNodes(ArrayList<Node> borderNodes) {
+
+        if (getMinimumRecommendedForceInBorders() > minimumRecommendedForceInBordersFailSafe) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<Node> output = new ArrayList<>();
+
+        int minRecom = getMinimumRecommendedForceInBorders();
+
+        for (Node node: borderNodes) {
+            if (node.getArmyCount() < minRecom)
+                output.add(node);
+        }
+
+        if (output.size() == 0) {
+            increaseMinimumRecommendedForceInBorders();
+            return getWeakBorderNodes(borderNodes);
+        }
+
+        return output;
+    }
 }
