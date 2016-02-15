@@ -69,15 +69,17 @@ public class ahmadalli {
 
     public static boolean isBorderNode(Node node)
     {
-        int ownerId=node.getOwner();
-        for(Node neighborNode:node.getNeighbours())
-
-        {
-            if(neighborNode.getOwner()!=ownerId)
-                return true;
+        try {
+            int ownerId=node.getOwner();
+            for(Node neighborNode:node.getNeighbours())
+            {
+                if(neighborNode.getOwner()!=ownerId)
+                    return true;
+            }
         }
-
+        catch (Exception e) {}
         return false;
+
     }
 }
 
