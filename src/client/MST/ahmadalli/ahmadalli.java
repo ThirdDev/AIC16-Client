@@ -56,7 +56,10 @@ public class Ahmadalli {
         int attackedCount = 0;
 
         for (Node ownerless : getOwnerlessNeighbors(source)) {
-            world.moveArmy(source, ownerless, constants.countOfArmyToAttackToOwnerlessNeighbors);
+            int army = constants.countOfArmyToAttackToOwnerlessNeighbors;
+            Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + source.getIndex() +
+                    " - to: " + ownerless.getIndex() + " - army: " + army);
+            world.moveArmy(source, ownerless, army);
             attackedCount++;
         }
 
@@ -69,7 +72,10 @@ public class Ahmadalli {
         }
 
         if (weakest != null && weakest.getArmyCount() <= getNodeState(source)) {
-            world.moveArmy(source, weakest, (int) ((double) (source.getArmyCount() - attackedCount) * constants.c1));
+            int army = (int) ((double) (source.getArmyCount() - attackedCount) * constants.c1);
+            Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: weakest - from:" + source.getIndex() +
+                    " - to: " + weakest.getIndex() + " - army: " + army);
+            world.moveArmy(source, weakest, army);
             return true;
         }
 
@@ -79,8 +85,11 @@ public class Ahmadalli {
     public static void moveRandomlyToFriendNeighbors(World world, Node source) {
         ArrayList<Node> friendlyNeighbors = getFriendlyNeighbors(source, true);
         if (friendlyNeighbors.size() > 0) {
-            world.moveArmy(source, friendlyNeighbors.get((int) (friendlyNeighbors.size() * Math.random())),
-                    (int) (source.getArmyCount() * constants.c2));
+            int army = (int) (source.getArmyCount() * constants.c2);
+            Node randomFriendlyNeighbor = friendlyNeighbors.get((int) (friendlyNeighbors.size() * Math.random()));
+            Ahmadalli.log("method: ahmadalli.moveRandomlyToFriendNeighbors - section:  - from:" + source.getIndex() +
+                    " - to: " + randomFriendlyNeighbor.getIndex() + " - army: " + army);
+            world.moveArmy(source, randomFriendlyNeighbor, army);
         }
     }
 

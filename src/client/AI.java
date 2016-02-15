@@ -25,14 +25,13 @@ public class AI {
         try {
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
             ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
-            
+
             Amirhosein.crave(world, weakBorderNodes);
 
-            for (Node node: borderNodes) {
+            for (Node node : borderNodes) {
                 Ahmadalli.attackWeakestNearEnemy(world, node);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             layer1Move(world);
         }
     }
@@ -59,7 +58,10 @@ public class AI {
                 // select a random neighbour
                 Node destination = neighbours[(int) (neighbours.length * Math.random())];
                 // move half of the node's army to the neighbor node
-                world.moveArmy(source, destination, source.getArmyCount() / 2);
+                int army = source.getArmyCount() / 2;
+                Ahmadalli.log("method: AI.layer0Move - section:  - from:" + source.getIndex() +
+                        " - to: " + destination.getIndex() + " - army: " + army);
+                world.moveArmy(source, destination, army);
             }
         }
     }
