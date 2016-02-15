@@ -1,5 +1,6 @@
 package client.MST.mahdi;
 
+import client.MST.ahmadalli.Ahmadalli;
 import client.MST.constants;
 import client.World;
 import client.model.Node;
@@ -58,7 +59,10 @@ public class Mahdi {
 
             for (Node neighbour : node.getNeighbours()) {
                 if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
-                    world.moveArmy(node, neighbour, Math.min(moveCount, curForces));
+                    int army =Math.min(moveCount, curForces);
+                    Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + node.getIndex() +
+                            " - to: " + neighbour.getIndex() + " - army: " + army);
+                    world.moveArmy(node, neighbour,army );
                     curForces -= moveCount;
                     if (curForces < 0)
                         break;
