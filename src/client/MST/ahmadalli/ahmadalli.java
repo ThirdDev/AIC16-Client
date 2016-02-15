@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by me on 11/02/2016.
  */
 public class Ahmadalli {
-    public ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors) {
+    public static ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors) {
         ArrayList<Node> nodes = new ArrayList<>();
         for (Node neighbor : node.getNeighbours()) {
             if (neighbor.getOwner() != node.getOwner() || (emptyNeighbors && neighbor.getOwner() == -1)) {
@@ -21,7 +21,7 @@ public class Ahmadalli {
         return nodes;
     }
 
-    public ArrayList<Node> getFriendlyNeighbors(Node node, boolean emptyNeighbors) {
+    public static ArrayList<Node> getFriendlyNeighbors(Node node, boolean emptyNeighbors) {
         ArrayList<Node> nodes = new ArrayList<>();
         for (Node neighbor : node.getNeighbours()) {
             if (neighbor.getOwner() == node.getOwner() || (emptyNeighbors && neighbor.getOwner() == -1)) {
@@ -32,7 +32,7 @@ public class Ahmadalli {
         return nodes;
     }
 
-    public int getNodeState(Node node) {
+    public static int getNodeState(Node node) {
         int armyCount = node.getArmyCount();
         if (armyCount <= constants.c3)
             return 0;
@@ -41,7 +41,7 @@ public class Ahmadalli {
         return 2;
     }
 
-    public boolean attackWeakestNearEnemy(World world, Node source) {
+    public static boolean attackWeakestNearEnemy(World world, Node source) {
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source, true)) {
@@ -58,7 +58,7 @@ public class Ahmadalli {
         return false;
     }
 
-    public void moveRandomlyToFriendNeighbors(World world, Node source) {
+    public static void moveRandomlyToFriendNeighbors(World world, Node source) {
         ArrayList<Node> friendlyNeighbors = getFriendlyNeighbors(source, true);
         if (friendlyNeighbors.size() > 0) {
             world.moveArmy(source, friendlyNeighbors.get((int) (friendlyNeighbors.size() * Math.random())),
@@ -66,12 +66,12 @@ public class Ahmadalli {
         }
     }
 
-    public void layer1Move(World world, Node source) {
+    public static void layer1Move(World world, Node source) {
         if (!attackWeakestNearEnemy(world, source))
             moveRandomlyToFriendNeighbors(world, source);
     }
 
-    public boolean isBorderNode(Node node) {
+    public static boolean isBorderNode(Node node) {
         try {
             int ownerId = node.getOwner();
             for (Node neighborNode : node.getNeighbours()) {
@@ -84,7 +84,7 @@ public class Ahmadalli {
 
     }
 
-    public ArrayList<Node> getBorderNodes(World world) {
+    public static ArrayList<Node> getBorderNodes(World world) {
         ArrayList<Node> nodes = new ArrayList<>();
         for (Node node : world.getMyNodes()) {
             if (isBorderNode(node)) {

@@ -18,17 +18,14 @@ import java.util.ArrayList;
  * See World interface for more details.
  */
 public class AI {
-    Ahmadalli ahmadalli = new Ahmadalli();
-    Amirhosein amirhosein = new Amirhosein();
-    Mahdi mahdi = new Mahdi();
 
     public void doTurn(World world) {
         // fill this method, we've presented a stupid AI for example!
 
         try {
-            ArrayList<Node> borderNodes = ahmadalli.getBorderNodes(world);
-            ArrayList<Node> weakBorderNodes = mahdi.getWeakBorderNodes(borderNodes);
-            amirhosein.crave(world, weakBorderNodes);
+            ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
+            ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
+            Amirhosein.crave(world, weakBorderNodes);
         }
         catch (Exception ex) {
             layer1Move(world);
@@ -40,7 +37,7 @@ public class AI {
 
             Node[] myNodes = world.getMyNodes();
             for (Node source : myNodes) {
-                ahmadalli.layer1Move(world, source);
+                Ahmadalli.layer1Move(world, source);
             }
 
         } catch (Exception e) {

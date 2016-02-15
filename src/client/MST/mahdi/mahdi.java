@@ -10,20 +10,18 @@ import java.util.ArrayList;
  */
 public class Mahdi {
 
-    int minimumRecommendedForceInBorders = 10;
-        if (getMinimumRecommendedForceInBorders() > constants.minimumRecommendedForceInBordersFailSafe) {
+    static int minimumRecommendedForceInBorders = 10;
 
-    public int getMinimumRecommendedForceInBorders() {
+    public static int getMinimumRecommendedForceInBorders() {
         return minimumRecommendedForceInBorders;
     }
 
-    public int increaseMinimumRecommendedForceInBorders() {
+    public static void increaseMinimumRecommendedForceInBorders() {
         minimumRecommendedForceInBorders++;
     }
 
-    public ArrayList<Node> getWeakBorderNodes(ArrayList<Node> borderNodes) {
-
-        if (getMinimumRecommendedForceInBorders() > minimumRecommendedForceInBordersFailSafe) {
+    public static ArrayList<Node> getWeakBorderNodes(ArrayList<Node> borderNodes) {
+        if (getMinimumRecommendedForceInBorders() > constants.minimumRecommendedForceInBordersFailSafe) {
             return new ArrayList<>();
         }
 
