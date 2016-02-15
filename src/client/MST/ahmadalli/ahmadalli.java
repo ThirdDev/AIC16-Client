@@ -81,5 +81,17 @@ public class ahmadalli {
         return false;
 
     }
+
+    public static ArrayList<Node> getBorderNodes(World world)
+    {
+        ArrayList<Node> nodes=new ArrayList<>();
+        for(Node node:world.getMyNodes()){
+            if(isBorderNode(node))
+            {
+                nodes.add(node);
+            }
+        }
+        return nodes;
+    }
 }
 
