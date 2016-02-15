@@ -11,4 +11,5 @@ public final class constants { //todo: rename coefficients
     public static int c4 = 30;
 
     public static final int minimumRecommendedForceInBordersFailSafe = 200;
+    public static int countOfArmyToAttackToOwnerlessNeighbors = 1;
 }

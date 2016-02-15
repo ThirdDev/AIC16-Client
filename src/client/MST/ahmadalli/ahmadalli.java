@@ -53,6 +53,13 @@ public class Ahmadalli {
     }
 
     public static boolean attackWeakestNearEnemy(World world, Node source) {
+        int attackedCount = 0;
+
+        for (Node ownerless : getOwnerlessNeighbors(source)) {
+            world.moveArmy(source, ownerless, constants.countOfArmyToAttackToOwnerlessNeighbors);
+            attackedCount++;
+        }
+
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source, true)) {
@@ -62,7 +69,7 @@ public class Ahmadalli {
         }
 
         if (weakest != null && weakest.getArmyCount() <= getNodeState(source)) {
-            world.moveArmy(source, weakest, (int) ((double) source.getArmyCount() * constants.c1));
+            world.moveArmy(source, weakest, (int) ((double) (source.getArmyCount() - attackedCount) * constants.c1));
             return true;
         }
 
