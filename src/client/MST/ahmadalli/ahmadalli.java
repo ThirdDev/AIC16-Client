@@ -32,6 +32,17 @@ public class Ahmadalli {
         return nodes;
     }
 
+    public static ArrayList<Node> getOwnerlessNeighbors(Node node) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Node neighbor : node.getNeighbours()) {
+            if (neighbor.getOwner() == -1) {
+                nodes.add(neighbor);
+            }
+        }
+
+        return nodes;
+    }
+
     public static int getNodeState(Node node) {
         int armyCount = node.getArmyCount();
         if (armyCount <= constants.c3)
@@ -42,6 +53,13 @@ public class Ahmadalli {
     }
 
     public static boolean attackWeakestNearEnemy(World world, Node source) {
+        int attackedCount = 0;
+
+        for (Node ownerless : getOwnerlessNeighbors(source)) {
+            world.moveArmy(source, ownerless, constants.countOfArmyToAttackToOwnerlessNeighbors);
+            attackedCount++;
+        }
+
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source, true)) {
@@ -51,7 +69,7 @@ public class Ahmadalli {
         }
 
         if (weakest != null && weakest.getArmyCount() <= getNodeState(source)) {
-            world.moveArmy(source, weakest, (int) ((double) source.getArmyCount() * constants.c1));
+            world.moveArmy(source, weakest, (int) ((double) (source.getArmyCount() - attackedCount) * constants.c1));
             return true;
         }
 
@@ -95,7 +113,11 @@ public class Ahmadalli {
     }
 
     public static void logException(Exception e) {
-        System.out.println(e.getMessage());
+        log(e.getMessage());
+    }
+
+    public static void log(String text) {
+        System.out.println(text);
     }
 
 }
