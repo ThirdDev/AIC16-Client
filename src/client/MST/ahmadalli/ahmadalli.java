@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by me on 11/02/2016.
  */
-public class ahmadalli {
+public class Ahmadalli {
     public static ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors)
     {
         ArrayList<Node> nodes= new ArrayList<>();
