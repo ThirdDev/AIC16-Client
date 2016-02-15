@@ -22,25 +22,40 @@ public class AI {
 
     public void doTurn(World world) {
         // fill this method, we've presented a stupid AI for example!
+
+        try {
+
+        }
+        catch (Exception ex) {
+            layer1Move(world);
+        }
+    }
+
+    private void layer1Move(World world) {
+        try {
+
+            Node[] myNodes = world.getMyNodes();
+            for (Node source : myNodes) {
+                ahmadalli.layer1Move(world, source);
+            }
+
+        } catch (Exception e) {
+            layer0Move(world);
+        }
+    }
+
+    private void layer0Move(World world) {
         Node[] myNodes = world.getMyNodes();
         for (Node source : myNodes) {
             // get neighbours
             Node[] neighbours = source.getNeighbours();
             if (neighbours.length > 0) {
-                try {
-                    ahmadalli.layer1Move(world, source);
-                } catch (Exception e) {
-                    moveRandomly(world, source, neighbours);
-                }
+                // select a random neighbour
+                Node destination = neighbours[(int) (neighbours.length * Math.random())];
+                // move half of the node's army to the neighbor node
+                world.moveArmy(source, destination, source.getArmyCount() / 2);
             }
         }
-
     }
 
-    private void moveRandomly(World world, Node source, Node[] neighbours) {
-        // select a random neighbour
-        Node destination = neighbours[(int) (neighbours.length * Math.random())];
-        // move half of the node's army to the neighbor node
-        world.moveArmy(source, destination, source.getArmyCount() / 2);
-    }
 }
