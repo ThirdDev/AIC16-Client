@@ -51,7 +51,10 @@ public class Amirhosein {
                             if (nextTurnVals[neighbour.getIndex()] > 1) {
                                 nextTurnVals[neighbour.getIndex()] = 1;
                                 nextTurnVals[u.getIndex()] += neighbour.getArmyCount() - 1;
-                                world.moveArmy(neighbour, u, neighbour.getArmyCount() - 1);
+                                int army = neighbour.getArmyCount() - 1;
+                                Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + neighbour.getIndex() +
+                                        " - to: " + u.getIndex() + " - army: " + army);
+                                world.moveArmy(neighbour, u, army);
                                 flag = true;
                                 break;
                             }
@@ -59,7 +62,10 @@ public class Amirhosein {
                             if (nextTurnVals[neighbour.getIndex()] > Mahdi.getMinimumRecommendedForceInBorders()) {
                                 nextTurnVals[neighbour.getIndex()] = Mahdi.getMinimumRecommendedForceInBorders();
                                 nextTurnVals[u.getIndex()] += neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders();
-                                world.moveArmy(neighbour, u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
+                                int army = neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders();
+                                Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + neighbour.getIndex() +
+                                        " - to: " + u.getIndex() + " - army: " + army);
+                                world.moveArmy(neighbour, u, army);
                                 flag = true;
                                 break;
                             }
