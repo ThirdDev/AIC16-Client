@@ -1,7 +1,6 @@
 package client;
 
 import client.MST.ahmadalli.Ahmadalli;
-import client.MST.ahmadalli.ahmadalli;
 import client.MST.amirhosein.Amirhosein;
 import client.MST.constants;
 import client.MST.mahdi.Mahdi;
