@@ -1,9 +1,11 @@
 package client.MST.mahdi;
 
 import client.MST.constants;
+import client.World;
 import client.model.Node;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by me on 11/02/2016.
@@ -40,5 +42,28 @@ public class Mahdi {
         }
 
         return output;
+    }
+
+    public static void taneLash(World world, ArrayList<Node> untouchedNodes, Map<Node, Integer> minDistanceToBorder) {
+        for (Node node: untouchedNodes) {
+            int nearerNeighborCount = 0;
+            for (Node neighbour : node.getNeighbours()) {
+                if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
+                    nearerNeighborCount++;
+                }
+            }
+
+            int curForces = node.getArmyCount();
+            int moveCount = node.getArmyCount() / nearerNeighborCount;
+
+            for (Node neighbour : node.getNeighbours()) {
+                if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
+                    world.moveArmy(node, neighbour, Math.min(moveCount, curForces));
+                    curForces -= moveCount;
+                    if (curForces < 0)
+                        break;
+                }
+            }
+        }
     }
 }

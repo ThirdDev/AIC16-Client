@@ -6,6 +6,7 @@ import client.MST.mahdi.Mahdi;
 import client.model.Node;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * AI class.
@@ -26,11 +27,15 @@ public class AI {
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
             ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
             
-            Amirhosein.crave(world, weakBorderNodes);
+            ArrayList<Node> untouchedNodes = Amirhosein.crave(world, weakBorderNodes);
+
+            Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
 
             for (Node node: borderNodes) {
                 Ahmadalli.attackWeakestNearEnemy(world, node);
             }
+
+            Mahdi.taneLash(world, untouchedNodes, minDistanceToBorder);
         }
         catch (Exception ex) {
             layer1Move(world);
