@@ -113,7 +113,11 @@ public class Ahmadalli {
     }
 
     public static void logException(Exception e) {
-        System.out.println(e.getMessage());
+        log(e.getMessage());
+    }
+
+    public static void log(String text) {
+        System.out.println(text);
     }
 
 }
