@@ -5,6 +5,8 @@ import client.MST.amirhosein.Amirhosein;
 import client.MST.mahdi.Mahdi;
 import client.model.Node;
 
+import java.util.ArrayList;
+
 /**
  * AI class.
  * You should fill body of the method {@link #doTurn}.
@@ -24,7 +26,9 @@ public class AI {
         // fill this method, we've presented a stupid AI for example!
 
         try {
-
+            ArrayList<Node> borderNodes = ahmadalli.getBorderNodes(world);
+            ArrayList<Node> weakBorderNodes = mahdi.getWeakBorderNodes(borderNodes);
+            amirhosein.crave(world, weakBorderNodes);
         }
         catch (Exception ex) {
             layer1Move(world);
