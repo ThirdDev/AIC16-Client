@@ -5,6 +5,8 @@ import client.model.Node;
 import client.MST.constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by me on 11/02/2016.
@@ -52,15 +54,18 @@ public class Ahmadalli {
         return 2;
     }
 
-    public static boolean attackWeakestNearEnemy(World world, Node source) {
+    public static boolean attackWeakestNearEnemy(World world, Node source, ArrayList<Node> alreadySentForce) {
         int attackedCount = 0;
 
         for (Node ownerless : getOwnerlessNeighbors(source)) {
-            int army = constants.countOfArmyToAttackToOwnerlessNeighbors;
-            Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + source.getIndex() +
-                    " - to: " + ownerless.getIndex() + " - army: " + army);
-            world.moveArmy(source, ownerless, army);
-            attackedCount++;
+            if (!alreadySentForce.contains(ownerless)) {
+                int army = constants.countOfArmyToAttackToOwnerlessNeighbors;
+                Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + source.getIndex() +
+                        " - to: " + ownerless.getIndex() + " - army: " + army);
+                world.moveArmy(source, ownerless, army);
+                attackedCount++;
+                alreadySentForce.add(ownerless);
+            }
         }
 
         Node weakest = null;
@@ -93,8 +98,8 @@ public class Ahmadalli {
         }
     }
 
-    public static void layer1Move(World world, Node source) {
-        if (!attackWeakestNearEnemy(world, source))
+    public static void layer1Move(World world, Node source, ArrayList<Node> alreadySentForce) {
+        if (!attackWeakestNearEnemy(world, source, alreadySentForce))
             moveRandomlyToFriendNeighbors(world, source);
     }
 
@@ -118,6 +123,16 @@ public class Ahmadalli {
                 nodes.add(node);
             }
         }
+
+        Collections.sort(nodes,new Comparator<Node>()
+        {
+            @Override
+            public int compare(Node a,Node b)
+            {
+                return Integer.signum( getOwnerlessNeighbors(a).size() - getOwnerlessNeighbors(b).size());
+            }
+        });
+
         return nodes;
     }
 

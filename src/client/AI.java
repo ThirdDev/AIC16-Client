@@ -32,8 +32,10 @@ public class AI {
             ArrayList<Node> untouchedNodes = Amirhosein.crave(world, weakBorderNodes);
 
             Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
+
+            ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node node : borderNodes) {
-                Ahmadalli.attackWeakestNearEnemy(world, node);
+                Ahmadalli.attackWeakestNearEnemy(world, node, newCatchedNodes);
             }
 
             Mahdi.taneLash(world, untouchedNodes, minDistanceToBorder);
@@ -47,8 +49,9 @@ public class AI {
         try {
 
             Node[] myNodes = world.getMyNodes();
+            ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node source : myNodes) {
-                Ahmadalli.layer1Move(world, source);
+                Ahmadalli.layer1Move(world, source, newCatchedNodes);
             }
 
         } catch (Exception e) {
