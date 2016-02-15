@@ -41,7 +41,7 @@ public class Ahmadalli {
         return 2;
     }
 
-    public void layer1Move(World world, Node source) {
+    public boolean attackWeakestNearEnemy(World world, Node source) {
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source, true)) {
@@ -52,13 +52,23 @@ public class Ahmadalli {
 
         if (weakest != null && weakest.getArmyCount() <= getNodeState(source)) {
             world.moveArmy(source, weakest, (int) ((double) source.getArmyCount() * constants.c1));
-        } else {
-            ArrayList<Node> friendlyNeighbors = getFriendlyNeighbors(source, true);
-            if (friendlyNeighbors.size() > 0) {
-                world.moveArmy(source, friendlyNeighbors.get((int) (friendlyNeighbors.size() * Math.random())),
-                        (int) (source.getArmyCount() * constants.c2));
-            }
+            return true;
         }
+
+        return false;
+    }
+
+    public void moveRandomlyToFriendNeighbors(World world, Node source) {
+        ArrayList<Node> friendlyNeighbors = getFriendlyNeighbors(source, true);
+        if (friendlyNeighbors.size() > 0) {
+            world.moveArmy(source, friendlyNeighbors.get((int) (friendlyNeighbors.size() * Math.random())),
+                    (int) (source.getArmyCount() * constants.c2));
+        }
+    }
+
+    public void layer1Move(World world, Node source) {
+        if (!attackWeakestNearEnemy(world, source))
+            moveRandomlyToFriendNeighbors(world, source);
     }
 
     public boolean isBorderNode(Node node) {
