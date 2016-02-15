@@ -16,9 +16,10 @@ import client.model.Node;
  * See World interface for more details.
  */
 public class AI {
-    Ahmadalli ahmadalli=new Ahmadalli();
-    Amirhosein amirhosein=new Amirhosein();
-    Mahdi mahdi=new Mahdi();
+    Ahmadalli ahmadalli = new Ahmadalli();
+    Amirhosein amirhosein = new Amirhosein();
+    Mahdi mahdi = new Mahdi();
+
     public void doTurn(World world) {
         // fill this method, we've presented a stupid AI for example!
         Node[] myNodes = world.getMyNodes();
@@ -27,21 +28,19 @@ public class AI {
             Node[] neighbours = source.getNeighbours();
             if (neighbours.length > 0) {
                 try {
-                    ahmadalli.layer1Move(world,source);
-                }
-                catch(Exception e) {
-                    moveRandomly(world,source,neighbours);
+                    ahmadalli.layer1Move(world, source);
+                } catch (Exception e) {
+                    moveRandomly(world, source, neighbours);
                 }
             }
         }
 
     }
 
-    private void moveRandomly(World world, Node source, Node[] neighbours)
-    {
+    private void moveRandomly(World world, Node source, Node[] neighbours) {
         // select a random neighbour
         Node destination = neighbours[(int) (neighbours.length * Math.random())];
         // move half of the node's army to the neighbor node
-        world.moveArmy(source, destination, source.getArmyCount()/2);
+        world.moveArmy(source, destination, source.getArmyCount() / 2);
     }
 }
