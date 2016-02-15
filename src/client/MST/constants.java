@@ -10,6 +10,8 @@ public final class constants { //todo: rename coefficients
     public static final int c3 = 10;
     public static final int c4 = 30;
 
+    public static final int minimumRecommendedForceInBordersFailSafe = 200;
+
     /**
      * The caller references the constants using <tt>Consts.EMPTY_STRING</tt>,
      * and so on. Thus, the caller should be prevented from constructing objects of

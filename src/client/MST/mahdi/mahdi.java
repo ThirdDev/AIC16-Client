@@ -1,5 +1,6 @@
 package client.MST.mahdi;
 
+import client.MST.constants;
 import client.model.Node;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class Mahdi {
 
     int minimumRecommendedForceInBorders = 10;
-    int minimumRecommendedForceInBordersFailSafe = 200;
+        if (getMinimumRecommendedForceInBorders() > constants.minimumRecommendedForceInBordersFailSafe) {
 
     public int getMinimumRecommendedForceInBorders() {
         return minimumRecommendedForceInBorders;
