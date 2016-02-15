@@ -1,7 +1,10 @@
 package client;
 
+import client.MST.ahmadalli.Ahmadalli;
 import client.MST.ahmadalli.ahmadalli;
+import client.MST.amirhosein.Amirhosein;
 import client.MST.constants;
+import client.MST.mahdi.Mahdi;
 import client.model.Node;
 
 /**
@@ -15,6 +18,9 @@ import client.model.Node;
  * See World interface for more details.
  */
 public class AI {
+    Ahmadalli ahmadalli=new Ahmadalli();
+    Amirhosein amirhosein=new Amirhosein();
+    Mahdi mahdi=new Mahdi();
     public void doTurn(World world) {
         // fill this method, we've presented a stupid AI for example!
         Node[] myNodes = world.getMyNodes();
