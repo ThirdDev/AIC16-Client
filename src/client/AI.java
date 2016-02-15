@@ -25,7 +25,12 @@ public class AI {
         try {
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
             ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
+            
             Amirhosein.crave(world, weakBorderNodes);
+
+            for (Node node: borderNodes) {
+                Ahmadalli.attackWeakestNearEnemy(world, node);
+            }
         }
         catch (Exception ex) {
             layer1Move(world);
