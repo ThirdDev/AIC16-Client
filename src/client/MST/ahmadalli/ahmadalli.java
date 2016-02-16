@@ -65,6 +65,8 @@ public class Ahmadalli {
                 world.moveArmy(source, ownerless, army);
                 attackedCount++;
                 alreadySentForce.add(ownerless);
+
+                return true;
             }
         }
 
