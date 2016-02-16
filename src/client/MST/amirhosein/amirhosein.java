@@ -81,6 +81,7 @@ public class Amirhosein
                         }
                         else
                         {
+                            /**
                             if (nextTurnVals[neighbour.getIndex()] > Mahdi.getMinimumRecommendedForceInBorders())
                             {
                                 nextTurnVals[neighbour.getIndex()] = Mahdi.getMinimumRecommendedForceInBorders();
@@ -96,6 +97,7 @@ public class Amirhosein
                                     break;
                                 }
                             }
+                            /**/
                         }
                     }
                 }
