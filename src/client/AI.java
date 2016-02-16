@@ -27,6 +27,8 @@ public class AI {
         Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
         Ahmadalli.log("We currently have " + world.getMyNodes().length + " nodes.");
         //try {
+            Mahdi.InitAttacks();
+
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
             Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
 
@@ -53,6 +55,8 @@ public class AI {
             Ahmadalli.log("EXCEPTION @ AI.java. " + ex.getMessage());
             layer1Move(world);
         }*/
+
+        Mahdi.ApplyAttacks(world);
     }
 
     private void layer1Move(World world) {

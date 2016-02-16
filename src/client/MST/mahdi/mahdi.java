@@ -13,6 +13,14 @@ import java.util.Map;
  */
 public class Mahdi {
 
+    private static class AttackData {
+        Node source;
+        Node dest;
+        int count;
+    }
+
+    static ArrayList<AttackData> attacks;
+
     static int minimumRecommendedForceInBorders = 10;
 
     public static int getMinimumRecommendedForceInBorders() {
@@ -78,5 +86,57 @@ public class Mahdi {
                 }
             }
         }
+    }
+
+
+    public static void InitAttacks() {
+        attacks = new ArrayList<>();
+    }
+
+    public static boolean IsAttackingSrc(Node n) {
+        for (AttackData d : attacks)
+            if (d.source == n)
+                return true;
+        return false;
+    }
+
+    public static boolean IsAttackingDest(Node n) {
+        for (AttackData d : attacks)
+            if (d.dest == n)
+                return true;
+        return false;
+    }
+
+    public static void CancelAttackSrc(Node n) {
+        for (int i = 0; i < attacks.size(); i++)
+            if (attacks.get(i).source == n) {
+                attacks.remove(attacks.get(i));
+            }
+    }
+
+    public static void CancelAttackDest(Node n) {
+        for (int i = 0; i < attacks.size(); i++)
+            if (attacks.get(i).dest == n) {
+                attacks.remove(attacks.get(i));
+            }
+    }
+
+    public static boolean Attack(Node src, Node dest, int count) {
+        if (IsAttackingSrc(src))
+            return false;
+
+        AttackData data = new AttackData();
+        data.source = src;
+        data.dest = dest;
+        data.count = count;
+
+        attacks.add(data);
+
+        return true;
+    }
+
+    public static void ApplyAttacks(World world) {
+        for (AttackData d : attacks)
+            world.moveArmy(d.source, d.dest, d.count);
     }
 }
