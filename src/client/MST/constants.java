@@ -4,7 +4,7 @@ package client.MST;
  * Created by me on 11/02/2016.
  */
 public final class constants { //todo: rename coefficients
-    public static double c1 = 1.0 / 2.0;
+    public static double c1 = 1.0 ;
     public static double c2 = 3.0 / 4.0;
 
     public static int c3 = 10;
