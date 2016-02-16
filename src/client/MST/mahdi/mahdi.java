@@ -126,6 +126,8 @@ public class Mahdi {
 
         for (Node ownerless : ownerlessNeighbors) {
             if (!IsMovingDest(ownerless)) {
+                Ahmadalli.log("method: Mahdi.GoGrabOwnerlessNodes - from:" + source.getIndex() +
+                        " - to: " + ownerless.getIndex() + " - army: " + (int)(source.getArmyCount() * factor));
                 Movement(source, ownerless, (int)(source.getArmyCount() * factor));
             }
         }
@@ -220,6 +222,8 @@ public class Mahdi {
             //If we're already moving somewhere ownerless, this attack will be ignored;
             // since that movement is registered before this.
             Movement(n, weakest, n.getArmyCount());
+            Ahmadalli.log("method: Mahdi.Escape (Poor Alone Node) - from:" + n.getIndex() +
+                    " - to: " + weakest.getIndex() + " - army: " + n.getArmyCount());
             return;
         }
 
@@ -236,6 +240,9 @@ public class Mahdi {
 
         if (Mahdi.IsMovingSrc(n))
             Mahdi.CancelMovementSrc(n);
+
+        Ahmadalli.log("method: Mahdi.Escape (Escape) - from:" + n.getIndex() +
+                " - to: " + smallestNeighbor.getIndex() + " - army: " + n.getArmyCount());
         Movement(n, smallestNeighbor, n.getArmyCount());
     }
 }
