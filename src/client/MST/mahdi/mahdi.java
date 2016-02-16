@@ -78,7 +78,7 @@ public class Mahdi {
                             int army = Math.min(moveCount, curForces);
                             Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
                                     " - to: " + neighbour.getIndex() + " - army: " + army);
-                            world.moveArmy(node, neighbour, army);
+                            Mahdi.Movement(node, neighbour, army);
                             curForces -= moveCount;
                             if (curForces < 0)
                                 break;

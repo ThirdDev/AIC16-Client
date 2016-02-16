@@ -1,5 +1,6 @@
 package client.MST.ahmadalli;
 
+import client.MST.mahdi.Mahdi;
 import client.World;
 import client.model.Node;
 import client.MST.constants;
@@ -62,7 +63,7 @@ public class Ahmadalli {
                 int army = source.getArmyCount() - 1; //constants.countOfArmyToAttackToOwnerlessNeighbors;
                 Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + source.getIndex() +
                         " - to: " + ownerless.getIndex() + " - army: " + army);
-                world.moveArmy(source, ownerless, army);
+                Mahdi.Movement(source, ownerless, army);
                 attackedCount++;
                 alreadySentForce.add(ownerless);
 
@@ -82,7 +83,7 @@ public class Ahmadalli {
             int army = (int) ((double) (source.getArmyCount() - attackedCount) * constants.c1);
             Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: weakest - from:" + source.getIndex() +
                     " - to: " + weakest.getIndex() + " - army: " + army);
-            world.moveArmy(source, weakest, army);
+            Mahdi.Movement(source, weakest, army);
             return true;
         }
 
@@ -96,7 +97,7 @@ public class Ahmadalli {
             Node randomFriendlyNeighbor = friendlyNeighbors.get((int) (friendlyNeighbors.size() * Math.random()));
             Ahmadalli.log("method: ahmadalli.moveRandomlyToFriendNeighbors - section:  - from:" + source.getIndex() +
                     " - to: " + randomFriendlyNeighbor.getIndex() + " - army: " + army);
-            world.moveArmy(source, randomFriendlyNeighbor, army);
+            Mahdi.Movement(source, randomFriendlyNeighbor, army);
         }
     }
 
