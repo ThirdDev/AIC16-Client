@@ -133,7 +133,6 @@ public class Amirhosein
             {
                 mark[j] = 0;
             }
-            mark[chief.getIndex()] = 1;
             dis[chief.getIndex()] = 0;
 
             while (q.size() > 0)
