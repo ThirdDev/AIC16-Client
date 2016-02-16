@@ -46,6 +46,7 @@ public class Mahdi {
     }
 
     public static void taneLash(World world, ArrayList<Node> untouchedNodes, Map<Node, Integer> minDistanceToBorder) {
+        Ahmadalli.log("method: Mahdi.taneLash - untochedNodes.size() = " + untouchedNodes.size());
         for (Node node : untouchedNodes) {
             int nearerNeighborCount = 0;
             for (Node neighbour : node.getNeighbours()) {
@@ -57,10 +58,11 @@ public class Mahdi {
             int curForces = node.getArmyCount();
             int moveCount = node.getArmyCount() / nearerNeighborCount;
 
+            Ahmadalli.log("method: Mahdi.taneLash - node #" + node.getIndex() + " minDistanceToBorder = " + minDistanceToBorder.get(node));
             for (Node neighbour : node.getNeighbours()) {
                 if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
                     int army = Math.min(moveCount, curForces);
-                    Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + node.getIndex() +
+                    Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
                             " - to: " + neighbour.getIndex() + " - army: " + army);
                     world.moveArmy(node, neighbour, army);
                     curForces -= moveCount;

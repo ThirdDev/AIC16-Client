@@ -23,25 +23,33 @@ public class AI {
     public void doTurn(World world)
     {
         // fill this method, we've presented a stupid AI for example!
-        Ahmadalli.log(Integer.toString(world.getTurnNumber()));
         Ahmadalli.log("--------");
+        Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
         try {
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
-            ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
+            Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
 
-            Amirhosein.crave(world, weakBorderNodes);
+            ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
+            Ahmadalli.log("AI: Mahdi.getWeakBorderNodes finished.");
 
             ArrayList<Node> untouchedNodes = Amirhosein.crave(world, weakBorderNodes);
+            Ahmadalli.log("AI: Amirhossein.crave finished.");
 
             Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
+            Ahmadalli.log("AI: Amirhossein.findDis finished.");
 
+
+            Ahmadalli.log("AI: will run Ahmadalli.attackWeakestNearEnemy for borderNodes (count = " + borderNodes.size() + ")");
             ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node node : borderNodes) {
                 Ahmadalli.attackWeakestNearEnemy(world, node, newCatchedNodes);
             }
+            Ahmadalli.log("AI: Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
 
             Mahdi.taneLash(world, untouchedNodes, minDistanceToBorder);
+            Ahmadalli.log("AI: Mahdi.taneLash finished.");
         } catch (Exception ex) {
+            Ahmadalli.log("EXCEPTION @ AI.java. " + ex.getMessage());
             layer1Move(world);
         }
     }
