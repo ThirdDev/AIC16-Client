@@ -149,6 +149,20 @@ public class Mahdi {
         return false;
     }
 
+    public static int GetArmyCountAfterMovements(Node n) {
+        int count = n.getArmyCount();
+
+        for (int i = 0; i < attacks.size(); i++)
+            if (attacks.get(i).dest == n) {
+                count += attacks.get(i).count;
+            }
+            else if (attacks.get(i).source == n) {
+                count -= attacks.get(i).count;
+            }
+
+        return count;
+    }
+
     public static void CancelMovementSrc(Node n) {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).source == n) {
