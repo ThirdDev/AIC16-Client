@@ -51,9 +51,10 @@ public class Mahdi {
             if (node.getOwner() == world.getMyID()) {
                 int nearerNeighborCount = 0;
                 for (Node neighbour : node.getNeighbours()) {
-                    if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
-                        nearerNeighborCount++;
-                    }
+                    if (neighbour.getOwner() == world.getMyID())
+                        if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
+                            nearerNeighborCount++;
+                        }
                 }
 
                 if (nearerNeighborCount == 0)
@@ -64,15 +65,16 @@ public class Mahdi {
 
                 Ahmadalli.log("method: Mahdi.taneLash - node #" + node.getIndex() + " minDistanceToBorder = " + minDistanceToBorder.get(node));
                 for (Node neighbour : node.getNeighbours()) {
-                    if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
-                        int army = Math.min(moveCount, curForces);
-                        Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
-                                " - to: " + neighbour.getIndex() + " - army: " + army);
-                        world.moveArmy(node, neighbour, army);
-                        curForces -= moveCount;
-                        if (curForces < 0)
-                            break;
-                    }
+                    if (neighbour.getOwner() == world.getMyID())
+                        if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
+                            int army = Math.min(moveCount, curForces);
+                            Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
+                                    " - to: " + neighbour.getIndex() + " - army: " + army);
+                            world.moveArmy(node, neighbour, army);
+                            curForces -= moveCount;
+                            if (curForces < 0)
+                                break;
+                        }
                 }
             }
         }
