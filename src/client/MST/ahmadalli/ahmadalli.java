@@ -55,7 +55,7 @@ public class Ahmadalli {
         return 2;
     }
 
-    public static boolean attackWeakestNearEnemy(World world, Node source, ArrayList<Node> alreadySentForce) {
+    public static int attackWeakestNearEnemy(World world, Node source, ArrayList<Node> alreadySentForce) {
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source, true)) {
@@ -73,10 +73,13 @@ public class Ahmadalli {
             if (Mahdi.IsMovingSrc(source))
                 Mahdi.CancelMovementSrc(source);
             Mahdi.Movement(source, weakest, army);
-            return true;
+            return 1; // We attacked the enemy.
         }
 
-        return false;
+        if (weakest == null)
+            return 0; // There were no enemy.
+        else
+            return -1; // The enemy was more powerful than us.
     }
 
     public static void moveRandomlyToFriendNeighbors(World world, Node source) {
@@ -91,7 +94,7 @@ public class Ahmadalli {
     }
 
     public static void layer1Move(World world, Node source, ArrayList<Node> alreadySentForce) {
-        if (!attackWeakestNearEnemy(world, source, alreadySentForce))
+        if (attackWeakestNearEnemy(world, source, alreadySentForce) != 1)
             moveRandomlyToFriendNeighbors(world, source);
     }
 

@@ -200,4 +200,42 @@ public class Mahdi {
         for (AttackData d : attacks)
             world.moveArmy(d.source, d.dest, d.count);
     }
+
+    public static void Escape(Node n) {
+        ArrayList<Node> neighbors = Ahmadalli.getFriendlyNeighbors(n, false);
+
+        //This poor node is alone :(
+        if (neighbors.size() == 0) {
+            //Attack anyway to somewhere :).
+            ArrayList<Node> enemies = Ahmadalli.getEnemyNeighbors(n, false);
+            if (enemies.size() == 0)
+                return;
+
+            Node weakest = enemies.get(0);
+            for (int i = 1; i < enemies.size(); i++) {
+                if (enemies.get(i).getArmyCount() < weakest.getArmyCount())
+                    weakest = enemies.get(i);
+            }
+
+            //If we're already moving somewhere ownerless, this attack will be ignored;
+            // since that movement is registered before this.
+            Movement(n, weakest, n.getArmyCount());
+            return;
+        }
+
+        Node smallestNeighbor = neighbors.get(0);
+        int smallestVal = GetArmyCountAfterMovements(smallestNeighbor);
+        for (int i = 1; i < neighbors.size(); i++) {
+            if (GetArmyCountAfterMovements(neighbors.get(i)) < smallestVal) {
+                smallestNeighbor = neighbors.get(i);
+                smallestVal = GetArmyCountAfterMovements(smallestNeighbor);
+            }
+        }
+
+        //TODO: If we're gonna escape, should we escape to an 'ownerless' node or not? Currently, we're not doing that.
+
+        if (Mahdi.IsMovingSrc(n))
+            Mahdi.CancelMovementSrc(n);
+        Movement(n, smallestNeighbor, n.getArmyCount());
+    }
 }

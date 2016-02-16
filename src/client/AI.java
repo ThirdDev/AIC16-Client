@@ -46,7 +46,8 @@ public class AI {
             ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node node : borderNodes) {
                 Mahdi.GoGrabOwnerlessNodes(node);
-                Ahmadalli.attackWeakestNearEnemy(world, node, newCatchedNodes);
+                if (Ahmadalli.attackWeakestNearEnemy(world, node, newCatchedNodes) == -1)
+                    Mahdi.Escape(node);
             }
             Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
 
