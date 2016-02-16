@@ -56,33 +56,22 @@ public class Ahmadalli {
     }
 
     public static boolean attackWeakestNearEnemy(World world, Node source, ArrayList<Node> alreadySentForce) {
-        int attackedCount = 0;
-
-        for (Node ownerless : getOwnerlessNeighbors(source)) {
-            if (!alreadySentForce.contains(ownerless)) {
-                int army = source.getArmyCount(); //constants.countOfArmyToAttackToOwnerlessNeighbors;
-                Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + source.getIndex() +
-                        " - to: " + ownerless.getIndex() + " - army: " + army);
-                Mahdi.Movement(source, ownerless, army);
-                attackedCount++;
-                alreadySentForce.add(ownerless);
-
-                return true;
-            }
-        }
-
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source, true)) {
             if (weakest == null || neighbor.getArmyCount() > weakest.getArmyCount()) {
-                weakest = neighbor;
+                if (neighbor.getOwner() != -1)
+                    weakest = neighbor;
             }
         }
 
         if (weakest != null && weakest.getArmyCount() <= getNodeState(source)) {
-            int army = (int) ((double) (source.getArmyCount() - attackedCount) * constants.c1);
-            Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: weakest - from:" + source.getIndex() +
+            int army = (int) ((double) (source.getArmyCount() * constants.c1));
+            Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - from:" + source.getIndex() +
                     " - to: " + weakest.getIndex() + " - army: " + army);
+
+            if (Mahdi.IsMovingSrc(source))
+                Mahdi.CancelMovementSrc(source);
             Mahdi.Movement(source, weakest, army);
             return true;
         }
@@ -127,12 +116,10 @@ public class Ahmadalli {
             }
         }
 
-        Collections.sort(nodes,new Comparator<Node>()
-        {
+        Collections.sort(nodes, new Comparator<Node>() {
             @Override
-            public int compare(Node a,Node b)
-            {
-                return Integer.signum( getOwnerlessNeighbors(a).size() - getOwnerlessNeighbors(b).size());
+            public int compare(Node a, Node b) {
+                return Integer.signum(getOwnerlessNeighbors(a).size() - getOwnerlessNeighbors(b).size());
             }
         });
 

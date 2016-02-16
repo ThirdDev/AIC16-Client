@@ -13,4 +13,6 @@ public final class constants { //todo: rename coefficients
     public static final int minimumRecommendedForceInBordersFailSafe = 200;
     public static int countOfArmyToAttackToOwnerlessNeighbors = 1;
     public static int minimumNumberOfUnitsLeftInEachNode = 0;
+
+    public static double factorOfSendingToNewNodeWhenCurrentMightBeInDanger = 0.2;
 }

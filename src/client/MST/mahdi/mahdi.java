@@ -88,6 +88,48 @@ public class Mahdi {
         }
     }
 
+    public static ArrayList<Node> getOnlyEnemyNeighbors(Node node) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Node neighbor : node.getNeighbours()) {
+            if (neighbor.getOwner() != node.getOwner() && (neighbor.getOwner() != -1)) {
+                nodes.add(neighbor);
+            }
+        }
+
+        return nodes;
+    }
+
+    public static void GoGrabOwnerlessNodes(Node source) {
+        //Ahmadalli.log("a " + source.getIndex());
+        if (IsMovingSrc(source))
+            return;
+        //Ahmadalli.log("b");
+        ArrayList<Node> ownerlessNeighbors = Ahmadalli.getOwnerlessNeighbors(source);
+
+        int count = 0;
+        for (Node ownerless : ownerlessNeighbors) {
+            if (!IsMovingDest(ownerless)) {
+                count++;
+            }
+        }
+        //Ahmadalli.log("c " + count);
+
+
+        if (count == 0)
+            return;
+
+        double factor = constants.factorOfSendingToNewNodeWhenCurrentMightBeInDanger;
+        if (getOnlyEnemyNeighbors(source).size() == 0)
+            factor = 1;
+
+        //Ahmadalli.log("d " + factor + " " + getOnlyEnemyNeighbors(source).size());
+
+        for (Node ownerless : ownerlessNeighbors) {
+            if (!IsMovingDest(ownerless)) {
+                Movement(source, ownerless, (int)(source.getArmyCount() * factor));
+            }
+        }
+    }
 
     public static void InitMovements() {
         attacks = new ArrayList<>();
@@ -122,6 +164,11 @@ public class Mahdi {
     }
 
     public static boolean Movement(Node src, Node dest, int count) {
+        if (count <= 0) {
+            Ahmadalli.log("Invalid Movement Command from " + src.getIndex() + " to " + dest.getIndex() + " with count of " + count);
+            return false;
+        }
+
         if (IsMovingSrc(src))
             return false;
 

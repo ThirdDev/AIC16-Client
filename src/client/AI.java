@@ -45,6 +45,7 @@ public class AI {
             Ahmadalli.log("AI: borderNodes (count = " + borderNodes.size() + ")");
             ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node node : borderNodes) {
+                Mahdi.GoGrabOwnerlessNodes(node);
                 Ahmadalli.attackWeakestNearEnemy(world, node, newCatchedNodes);
             }
             Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
