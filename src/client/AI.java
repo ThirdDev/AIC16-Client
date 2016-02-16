@@ -42,12 +42,12 @@ public class AI {
             Ahmadalli.log("AI: Amirhossein.findDis finished.");
 
 
-            Ahmadalli.log("AI: will run Ahmadalli.attackWeakestNearEnemy for borderNodes (count = " + borderNodes.size() + ")");
+            Ahmadalli.log("AI: borderNodes (count = " + borderNodes.size() + ")");
             ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node node : borderNodes) {
                 Ahmadalli.attackWeakestNearEnemy(world, node, newCatchedNodes);
             }
-            Ahmadalli.log("AI: Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
+            Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
 
             Mahdi.taneLash(world, untouchedNodes, minDistanceToBorder);
             Ahmadalli.log("AI: Mahdi.taneLash finished.");
