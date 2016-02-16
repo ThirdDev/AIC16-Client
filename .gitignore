@@ -92,3 +92,5 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+.idea/artifacts/AIC16Client_jar.xml
+classes/artifacts/AIC16Client_jar/AIC16Client.jar

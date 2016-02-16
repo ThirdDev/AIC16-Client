@@ -20,7 +20,8 @@ import java.util.Map;
  */
 public class AI {
 
-    public void doTurn(World world) {
+    public void doTurn(World world)
+    {
         // fill this method, we've presented a stupid AI for example!
         Ahmadalli.log(Integer.toString(world.getTurnNumber()));
         Ahmadalli.log("--------");
