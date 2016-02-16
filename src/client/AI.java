@@ -25,6 +25,7 @@ public class AI {
         // fill this method, we've presented a stupid AI for example!
         Ahmadalli.log("--------");
         Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
+        Ahmadalli.log("We currently have " + world.getMyNodes().length + " nodes.");
         //try {
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
             Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
