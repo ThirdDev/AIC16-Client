@@ -72,7 +72,8 @@ public class Amirhosein
                                     moved[neighbour.getIndex()] = 1;
                                     Ahmadalli.log("method: amirhosein.crave - section: getFromNonBoarder - from:" + neighbour.getIndex() +
                                             " - to: " + u.getIndex() + " - army: " + (neighbour.getArmyCount() - constants.minimumNumberOfUnitsLeftInEachNode));
-                                    world.moveArmy(neighbour, u, neighbour.getArmyCount() - 1);
+                                    //world.moveArmy(neighbour, u, neighbour.getArmyCount() - constants.minimumNumberOfUnitsLeftInEachNode);
+                                    Mahdi.Movement(neighbour,u,neighbour.getArmyCount()-constants.minimumNumberOfUnitsLeftInEachNode);
                                     flag = true;
                                     break;
                                 }
@@ -90,6 +91,7 @@ public class Amirhosein
                                     Ahmadalli.log("method: amirhosein.crave - section: getFromBorder - from:" + neighbour.getIndex() +
                                             " - to: " + u.getIndex() + " - army: " + (neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders()));
                                     world.moveArmy(neighbour, u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
+                                    Mahdi.Movement(neighbour,u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
                                     flag = true;
                                     break;
                                 }
