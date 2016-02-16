@@ -127,14 +127,18 @@ public class Amirhosein
             boolean flag = false;
             Node chief = borderNodes.get(i);
             q.add(chief);
+
+            int mark[] = new int[150];
+            for (int j = 0; j < 150; j++)
+            {
+                mark[j] = 0;
+            }
+            mark[chief.getIndex()] = 1;
+
             while (q.size() > 0)
             {
                 Node u = q.poll();
-                int mark[] = new int[150];
-                for (int j = 0; j < 150; j++)
-                {
-                    mark[j] = 0;
-                }
+
                 mark[u.getIndex()] = 1;
                 for (int j = 0; j < u.getNeighbours().length; j++)
                 {
