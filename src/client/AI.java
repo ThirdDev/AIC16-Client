@@ -25,7 +25,7 @@ public class AI {
         // fill this method, we've presented a stupid AI for example!
         Ahmadalli.log("--------");
         Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
-        try {
+        //try {
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
             Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
 
@@ -48,10 +48,10 @@ public class AI {
 
             Mahdi.taneLash(world, untouchedNodes, minDistanceToBorder);
             Ahmadalli.log("AI: Mahdi.taneLash finished.");
-        } catch (Exception ex) {
+/*        } catch (Exception ex) {
             Ahmadalli.log("EXCEPTION @ AI.java. " + ex.getMessage());
             layer1Move(world);
-        }
+        }*/
     }
 
     private void layer1Move(World world) {
