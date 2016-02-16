@@ -156,7 +156,8 @@ public class Amirhosein
         Graph map = world.getMap();
         for (Node node : map.getNodes())
         {
-            ret.put(node, dis[node.getIndex()]);
+            if (node.getOwner() == world.getMyID())
+                ret.put(node, dis[node.getIndex()]);
         }
         return ret;
     }
