@@ -90,7 +90,7 @@ public class Amirhosein
                                     moved[neighbour.getIndex()] = 1;
                                     Ahmadalli.log("method: amirhosein.crave - section: getFromBorder - from:" + neighbour.getIndex() +
                                             " - to: " + u.getIndex() + " - army: " + (neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders()));
-                                    world.moveArmy(neighbour, u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
+                                    //world.moveArmy(neighbour, u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
                                     Mahdi.Movement(neighbour,u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
                                     flag = true;
                                     break;
