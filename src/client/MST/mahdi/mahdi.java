@@ -89,40 +89,40 @@ public class Mahdi {
     }
 
 
-    public static void InitAttacks() {
+    public static void InitMovements() {
         attacks = new ArrayList<>();
     }
 
-    public static boolean IsAttackingSrc(Node n) {
+    public static boolean IsMovingSrc(Node n) {
         for (AttackData d : attacks)
             if (d.source == n)
                 return true;
         return false;
     }
 
-    public static boolean IsAttackingDest(Node n) {
+    public static boolean IsMovingDest(Node n) {
         for (AttackData d : attacks)
             if (d.dest == n)
                 return true;
         return false;
     }
 
-    public static void CancelAttackSrc(Node n) {
+    public static void CancelMovementSrc(Node n) {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).source == n) {
                 attacks.remove(attacks.get(i));
             }
     }
 
-    public static void CancelAttackDest(Node n) {
+    public static void CancelMovementDest(Node n) {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).dest == n) {
                 attacks.remove(attacks.get(i));
             }
     }
 
-    public static boolean Attack(Node src, Node dest, int count) {
-        if (IsAttackingSrc(src))
+    public static boolean Movement(Node src, Node dest, int count) {
+        if (IsMovingSrc(src))
             return false;
 
         AttackData data = new AttackData();
@@ -135,7 +135,7 @@ public class Mahdi {
         return true;
     }
 
-    public static void ApplyAttacks(World world) {
+    public static void ApplyMovements(World world) {
         for (AttackData d : attacks)
             world.moveArmy(d.source, d.dest, d.count);
     }

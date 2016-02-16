@@ -27,7 +27,7 @@ public class AI {
         Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
         Ahmadalli.log("We currently have " + world.getMyNodes().length + " nodes.");
         //try {
-            Mahdi.InitAttacks();
+            Mahdi.InitMovements();
 
             ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
             Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
@@ -56,7 +56,7 @@ public class AI {
             layer1Move(world);
         }*/
 
-        Mahdi.ApplyAttacks(world);
+        Mahdi.ApplyMovements(world);
     }
 
     private void layer1Move(World world) {
