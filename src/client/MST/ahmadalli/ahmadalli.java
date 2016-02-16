@@ -59,7 +59,7 @@ public class Ahmadalli {
 
         for (Node ownerless : getOwnerlessNeighbors(source)) {
             if (!alreadySentForce.contains(ownerless)) {
-                int army = constants.countOfArmyToAttackToOwnerlessNeighbors;
+                int army = source.getArmyCount() - 1; //constants.countOfArmyToAttackToOwnerlessNeighbors;
                 Ahmadalli.log("method: ahmadalli.attackWeakestNearEnemy - section: ownerless - from:" + source.getIndex() +
                         " - to: " + ownerless.getIndex() + " - army: " + army);
                 world.moveArmy(source, ownerless, army);
