@@ -101,7 +101,7 @@ public class Amirhosein
         }
         ArrayList<Node> ret = new ArrayList<Node>();
         Graph map = world.getMap();
-        for (int i = 0; i < 150; i++)
+        for (int i = 0; i < map.getNodes().length; i++)
         {
             if (mark[i] == 0)
             {
