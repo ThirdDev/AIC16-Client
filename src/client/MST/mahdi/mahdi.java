@@ -55,6 +55,9 @@ public class Mahdi {
                 }
             }
 
+            if (nearerNeighborCount == 0)
+                continue;
+
             int curForces = node.getArmyCount();
             int moveCount = node.getArmyCount() / nearerNeighborCount;
 
