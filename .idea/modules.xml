@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AIC16Client.iml" filepath="$PROJECT_DIR$/AIC16Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AIC16RozeliumClient.iml" filepath="$PROJECT_DIR$/AIC16RozeliumClient.iml" />
     </modules>
   </component>
 </project>
