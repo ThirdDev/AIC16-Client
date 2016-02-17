@@ -2,7 +2,7 @@
   <artifact name="AIC16RozeliumClient:jar">
     <output-path>$PROJECT_DIR$/builds/</output-path>
     <root id="root">
-      <element id="archive" name="AIC16Client.jar">
+      <element id="archive" name="AIC16RozeliumClient.jar">
         <element id="module-output" name="AIC16RozeliumClient" />
         <element id="library" level="module" name="gson-2.3.1.jar" module-name="AIC16RozeliumClient" />
       </element>
