@@ -279,6 +279,8 @@ public class Mahdi {
 
         Queue<Node> Q = new LinkedList<>();
 
+        Q.add(source);
+
         Queue<Node> AttackCandidates = new LinkedList<>();
 
         while (Q.size() != 0) {
