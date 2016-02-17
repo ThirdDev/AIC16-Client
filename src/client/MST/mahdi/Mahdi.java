@@ -276,6 +276,8 @@ public class Mahdi {
             data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
         for (Node i : world.getOpponentNodes())
             data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
+        for (Node i : Ahmadalli.getBorderNodes(world))
+            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
 
         data.put(source, new NodeBFSData(source, null, 0));
 
