@@ -262,6 +262,8 @@ public class Mahdi {
 
         if (Mahdi.IsMovingSrc(n))
             Mahdi.CancelMovementSrc(n);
+        if (Mahdi.IsMovingDest(n))
+            Mahdi.CancelMovementDest(n);
 
         Ahmadalli.log("method: Mahdi.Escape (Escape) - from:" + n.getIndex() +
                 " - to: " + smallestNeighbor.getIndex() + " - army: " + n.getArmyCount());
