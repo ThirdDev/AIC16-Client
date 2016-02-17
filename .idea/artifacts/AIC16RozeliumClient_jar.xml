@@ -1,11 +1,9 @@
 <component name="ArtifactManager">
-  <artifact name="AIC16RozeliumClient:jar">
-    <output-path>$PROJECT_DIR$/builds/</output-path>
-    <root id="root">
-      <element id="archive" name="AIC16RozeliumClient.jar">
-        <element id="module-output" name="AIC16RozeliumClient" />
-        <element id="library" level="module" name="gson-2.3.1.jar" module-name="AIC16RozeliumClient" />
-      </element>
+  <artifact type="jar" name="AIC16RozeliumClient:jar">
+    <output-path>$PROJECT_DIR$/builds</output-path>
+    <root id="archive" name="AIC16RozeliumClient.jar">
+      <element id="module-output" name="AIC16RozeliumClient" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/gson-2.3.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
