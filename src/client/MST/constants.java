@@ -20,4 +20,7 @@ public final class constants { //todo: rename coefficients
     public static final int GetRouteEndlessLoopThreshold = 5000;
 
     public static final int EnemySoCloseDistance = 1;
+
+    public static final int UnderEstimateValue = 0;
+    public static final double UnderEstimateCoefficient = 1.0 / 1.0;
 }

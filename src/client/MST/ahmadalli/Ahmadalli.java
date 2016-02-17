@@ -47,7 +47,7 @@ public class Ahmadalli {
     }
 
     public static int getNodeState(Node node) {
-        int armyCount = node.getArmyCount();
+        int armyCount = (int) (node.getArmyCount() * constants.UnderEstimateCoefficient - constants.UnderEstimateValue);
         if (armyCount <= constants.c3)
             return 0;
         if (armyCount <= constants.c4)
