@@ -43,11 +43,8 @@ public class AI {
 
 
             Ahmadalli.log("AI: borderNodes (count = " + borderNodes.size() + ")");
-            ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node node : borderNodes) {
-                Mahdi.GoGrabOwnerlessNodes(node);
-                if (Ahmadalli.attackWeakestNearEnemy(world, node, newCatchedNodes) == -1)
-                    Mahdi.Escape(node);
+                Mahdi.MarzbananBePish(world, node);
             }
             Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
 
@@ -63,11 +60,9 @@ public class AI {
 
     private void layer1Move(World world) {
         try {
-
             Node[] myNodes = world.getMyNodes();
-            ArrayList<Node> newCatchedNodes = new ArrayList<>();
             for (Node source : myNodes) {
-                Ahmadalli.layer1Move(world, source, newCatchedNodes);
+                Ahmadalli.layer1Move(world, source);
             }
 
         } catch (Exception e) {

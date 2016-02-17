@@ -55,7 +55,7 @@ public class Ahmadalli {
         return 2;
     }
 
-    public static int attackWeakestNearEnemy(World world, Node source, ArrayList<Node> alreadySentForce) {
+    public static int attackWeakestNearEnemy(World world, Node source) {
         Node weakest = null;
 
         for (Node neighbor : getEnemyNeighbors(source, true)) {
@@ -93,8 +93,8 @@ public class Ahmadalli {
         }
     }
 
-    public static void layer1Move(World world, Node source, ArrayList<Node> alreadySentForce) {
-        if (attackWeakestNearEnemy(world, source, alreadySentForce) != 1)
+    public static void layer1Move(World world, Node source) {
+        if (attackWeakestNearEnemy(world, source) != 1)
             moveRandomlyToFriendNeighbors(world, source);
     }
 

@@ -5,8 +5,7 @@ import client.MST.constants;
 import client.World;
 import client.model.Node;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by me on 11/02/2016.
@@ -17,6 +16,30 @@ public class Mahdi {
         Node source;
         Node dest;
         int count;
+    }
+
+    public static class NodeBFSData {
+        Node node;
+        Node parent;
+        int distance;
+
+        NodeBFSData(Node _node, Node _parent, int _distance) {
+            node = _node;
+            parent = _parent;
+            distance = _distance;
+        }
+    }
+
+    public static class NodeBFSOutput {
+        Node target;
+        Node nextInPath;
+        int totalDistance;
+
+        NodeBFSOutput(Node _target, Node _nextInPath, int _totalDistance) {
+            target = _target;
+            nextInPath = _nextInPath;
+            totalDistance = _totalDistance;
+        }
     }
 
     static ArrayList<AttackData> attacks;
@@ -120,15 +143,15 @@ public class Mahdi {
 
         double factor = constants.factorOfSendingToNewNodeWhenCurrentMightBeInDanger;
         if (getOnlyEnemyNeighbors(source).size() == 0)
-            factor = 1;
+            factor = constants.factorOfSendingToNewNodeWhenCurrentIsSafe;
 
         //Ahmadalli.log("d " + factor + " " + getOnlyEnemyNeighbors(source).size());
 
         for (Node ownerless : ownerlessNeighbors) {
             if (!IsMovingDest(ownerless)) {
                 Ahmadalli.log("method: Mahdi.GoGrabOwnerlessNodes - from:" + source.getIndex() +
-                        " - to: " + ownerless.getIndex() + " - army: " + (int)(source.getArmyCount() * factor));
-                Movement(source, ownerless, (int)(source.getArmyCount() * factor));
+                        " - to: " + ownerless.getIndex() + " - army: " + (int) (source.getArmyCount() * factor));
+                Movement(source, ownerless, (int) (source.getArmyCount() * factor));
             }
         }
     }
@@ -157,8 +180,7 @@ public class Mahdi {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).dest == n) {
                 count += attacks.get(i).count;
-            }
-            else if (attacks.get(i).source == n) {
+            } else if (attacks.get(i).source == n) {
                 count -= attacks.get(i).count;
             }
 
@@ -244,5 +266,77 @@ public class Mahdi {
         Ahmadalli.log("method: Mahdi.Escape (Escape) - from:" + n.getIndex() +
                 " - to: " + smallestNeighbor.getIndex() + " - army: " + n.getArmyCount());
         Movement(n, smallestNeighbor, n.getArmyCount());
+    }
+
+    public static NodeBFSOutput GetRouteToNearestEnemy(World world, Node source) {
+        Map<Node, NodeBFSData> data = new HashMap<>();
+        for (Node i : world.getFreeNodes())
+            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
+        for (Node i : world.getOpponentNodes())
+            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
+
+        data.put(source, new NodeBFSData(source, null, 0));
+
+        Queue<Node> Q = new LinkedList<>();
+
+        Queue<Node> AttackCandidates = new LinkedList<>();
+
+        while (Q.size() != 0) {
+            Node current = Q.poll();
+
+            for (Node neighbor : current.getNeighbours()) {
+                if (neighbor.getOwner() != world.getMyID()) {
+                    if (data.get(neighbor).distance == Integer.MAX_VALUE) {
+                        data.get(neighbor).distance = data.get(current).distance + 1;
+                        data.get(neighbor).parent = current;
+                        if (neighbor.getOwner() == -1) {
+                            Q.add(neighbor);
+                        } else {
+                            AttackCandidates.add(neighbor);
+                        }
+                    }
+                }
+            }
+        }
+        //AttackCandidates is already sorted by minimum distance.
+        int counter = 0;
+        while (AttackCandidates.size() != 0) {
+            Node target = AttackCandidates.poll();
+            Node n = target;
+            while (data.get(n).parent != source) {
+                n = data.get(n).parent;
+                counter++;
+                if (counter > constants.GetRouteEndlessLoopThreshold) {
+                    Ahmadalli.log("FATAL ERROR in Mahdi.GetRouteToNearestEnemy : EndlessLoopThreshold reached.");
+                    return null;
+                }
+            }
+
+            if (!IsMovingDest(n))
+                return new NodeBFSOutput(target, n, data.get(target).distance);
+        }
+        return null;
+    }
+
+    public static void MarzbananBePish(World world, Node node) {
+        NodeBFSOutput route = Mahdi.GetRouteToNearestEnemy(world, node);
+        if (route != null) {
+            if (route.totalDistance <= constants.EnemySoCloseDistance) {
+                if (route.target.getArmyCount() <= Ahmadalli.getNodeState(node)) {
+                    Ahmadalli.log("method: Mahdi.MarzbananBePish (Escape) - from:" + node.getIndex() +
+                            " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1));
+                    Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1));
+                } else {
+                    Mahdi.Escape(node);
+                }
+            } else { //There's no enemy in distance == 1 of this node, so this node is safe.
+                Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
+            }
+
+        } else { //Fall back on previous method.
+            Mahdi.GoGrabOwnerlessNodes(node);
+            if (Ahmadalli.attackWeakestNearEnemy(world, node) == -1)
+                Mahdi.Escape(node);
+        }
     }
 }
