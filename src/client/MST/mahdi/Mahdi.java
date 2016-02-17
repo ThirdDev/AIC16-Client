@@ -143,7 +143,7 @@ public class Mahdi {
 
         double factor = constants.factorOfSendingToNewNodeWhenCurrentMightBeInDanger;
         if (getOnlyEnemyNeighbors(source).size() == 0)
-            factor = constants.factorOfSendingToNewNodeWhenCurrentIsSafe;
+            factor = constants.factorOfSendingToNewNodeWhenCurrentIsSafe2;
 
         //Ahmadalli.log("d " + factor + " " + getOnlyEnemyNeighbors(source).size());
 

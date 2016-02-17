@@ -16,6 +16,7 @@ public final class constants { //todo: rename coefficients
 
     public static double factorOfSendingToNewNodeWhenCurrentMightBeInDanger = 0.2;
     public static double factorOfSendingToNewNodeWhenCurrentIsSafe = 1;
+    public static double factorOfSendingToNewNodeWhenCurrentIsSafe2 = 0.25;
 
     public static final int GetRouteEndlessLoopThreshold = 5000;
 
