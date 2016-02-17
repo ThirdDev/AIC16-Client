@@ -324,23 +324,33 @@ public class Mahdi {
 
     public static void MarzbananBePish(World world, Node node) {
         NodeBFSOutput route = Mahdi.GetRouteToNearestEnemy(world, node);
-        if (route != null) {
-            if (route.totalDistance <= constants.EnemySoCloseDistance) {
-                if (route.target.getArmyCount() <= Ahmadalli.getNodeState(node)) {
-                    Ahmadalli.log("method: Mahdi.MarzbananBePish (Escape) - from:" + node.getIndex() +
-                            " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1));
-                    Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1));
-                } else {
-                    Mahdi.Escape(node);
+        try {
+            if (route != null) {
+                if (route.totalDistance <= constants.EnemySoCloseDistance) {
+                    if (route.target.getArmyCount() <= Ahmadalli.getNodeState(node)) {
+                        Ahmadalli.log("method: Mahdi.MarzbananBePish (Escape) - from:" + node.getIndex() +
+                                " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1));
+                        Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1));
+                    } else {
+                        Mahdi.Escape(node);
+                    }
+                } else { //There's no enemy in distance == 1 of this node, so this node is safe.
+                    Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
                 }
-            } else { //There's no enemy in distance == 1 of this node, so this node is safe.
-                Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
-            }
 
-        } else { //Fall back on previous method.
-            Mahdi.GoGrabOwnerlessNodes(node);
-            if (Ahmadalli.attackWeakestNearEnemy(world, node) == -1)
-                Mahdi.Escape(node);
+            } else { //Fall back on previous method.
+                PreviousMarzbananAlgorithm(world, node);
+            }
         }
+        catch (Exception ex) {
+            Ahmadalli.log("EXCEPTION IN MarzbananBePish.");
+            PreviousMarzbananAlgorithm(world, node);
+        }
+    }
+
+    public static void PreviousMarzbananAlgorithm(World world, Node node) {
+        Mahdi.GoGrabOwnerlessNodes(node);
+        if (Ahmadalli.attackWeakestNearEnemy(world, node) == -1)
+            Mahdi.Escape(node);
     }
 }
