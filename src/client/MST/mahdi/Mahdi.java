@@ -76,8 +76,40 @@ public class Mahdi {
         return output;
     }
 
-    public static void taneLash(World world, ArrayList<Node> untouchedNodes, Map<Node, Integer> minDistanceToBorder) {
-        Ahmadalli.log("method: Mahdi.taneLash - untochedNodes.size() = " + untouchedNodes.size());
+    public static Map<Node, NodeBFSOutput> FindNearestEnemyDistance(World world, ArrayList<Node> nodes) {
+        Map<Node, NodeBFSOutput> output = new HashMap<>();
+        for (Node i : nodes) {
+            output.put(i, Mahdi.GetRouteToNearestEnemy(world, i));
+        }
+        return output;
+    }
+
+    public static void taneLash(World world, ArrayList<Node> untouchedNodes, ArrayList<Node> borderNodes, Map<Node, NodeBFSOutput> nearestEnemyDistance) {
+        for (Node node : untouchedNodes) {
+            if (node.getOwner() == world.getMyID()) {
+
+                double bestVal = Integer.MAX_VALUE;
+                ArrayList<Node> bestPath = null;
+                for (Node b : borderNodes) {
+                    ArrayList<Node> path = GetPath(world, node, b);
+                    double val = path.size() * constants.taneLashC1
+                            + nearestEnemyDistance.get(b).totalDistance * constants.taneLashC2;
+
+                    if (val < bestVal) {
+                        bestVal = val;
+                        bestPath = path;
+                    }
+                }
+
+                Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
+                        " - to: " + bestPath.get(0).getIndex() + " - army: " + node.getArmyCount());
+                Mahdi.Movement(node, bestPath.get(0), node.getArmyCount());
+            }
+        }
+    }
+
+    public static void taneLashOld(World world, ArrayList<Node> untouchedNodes, Map<Node, Integer> minDistanceToBorder) {
+        Ahmadalli.log("method: Mahdi.taneLashOld - untochedNodes.size() = " + untouchedNodes.size());
         for (Node node : untouchedNodes) {
             if (node.getOwner() == world.getMyID()) {
                 int nearerNeighborCount = 0;
@@ -94,12 +126,12 @@ public class Mahdi {
                 int curForces = node.getArmyCount();
                 int moveCount = node.getArmyCount() / nearerNeighborCount;
 
-                Ahmadalli.log("method: Mahdi.taneLash - node #" + node.getIndex() + " minDistanceToBorder = " + minDistanceToBorder.get(node));
+                Ahmadalli.log("method: Mahdi.taneLashOld - node #" + node.getIndex() + " minDistanceToBorder = " + minDistanceToBorder.get(node));
                 for (Node neighbour : node.getNeighbours()) {
                     if (neighbour.getOwner() == world.getMyID())
                         if (minDistanceToBorder.get(neighbour) < minDistanceToBorder.get(node)) {
                             int army = Math.min(moveCount, curForces);
-                            Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
+                            Ahmadalli.log("method: Mahdi.taneLashOld - from:" + node.getIndex() +
                                     " - to: " + neighbour.getIndex() + " - army: " + army);
                             Mahdi.Movement(node, neighbour, army);
                             curForces -= moveCount;
@@ -277,7 +309,8 @@ public class Mahdi {
         for (Node i : world.getOpponentNodes())
             data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
         for (Node i : Ahmadalli.getBorderNodes(world))
-            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
+            if (i != source)
+                data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
 
         data.put(source, new NodeBFSData(source, null, 0));
 
@@ -354,5 +387,46 @@ public class Mahdi {
         Mahdi.GoGrabOwnerlessNodes(node);
         if (Ahmadalli.attackWeakestNearEnemy(world, node) == -1)
             Mahdi.Escape(node);
+    }
+
+    public static ArrayList<Node> GetPath(World world, Node src, Node dest) {
+        Map<Node, NodeBFSData> data = new HashMap<>();
+        for (Node i : world.getFreeNodes())
+            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
+        for (Node i : world.getOpponentNodes())
+            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
+        for (Node i : world.getMyNodes())
+            if (i != src)
+                data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
+
+        data.put(src, new NodeBFSData(src, null, 0));
+
+        Queue<Node> Q = new LinkedList<>();
+
+        Q.add(src);
+
+        while (Q.size() != 0) {
+            Node current = Q.poll();
+
+            if (current == dest)
+                break;
+
+            for (Node neighbor: current.getNeighbours()) {
+                if (data.get(neighbor).distance == Integer.MAX_VALUE) {
+                    data.get(neighbor).distance = data.get(current).distance + 1;
+                    data.get(neighbor).parent = current;
+                    Q.add(neighbor);
+                }
+            }
+        }
+
+        ArrayList<Node> path = new ArrayList<>();
+        Node cur = dest;
+        while (cur != src) {
+            path.add(cur);
+            cur = data.get(cur).parent;
+        }
+        Collections.reverse(path);
+        return path;
     }
 }

@@ -20,36 +20,42 @@ import java.util.Map;
  */
 public class AI {
 
-    public void doTurn(World world)
-    {
+    public void doTurn(World world) {
         // fill this method, we've presented a stupid AI for example!
         Ahmadalli.log("--------");
         Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
         Ahmadalli.log("We currently have " + world.getMyNodes().length + " nodes.");
         //try {
-            Mahdi.InitMovements();
+        Mahdi.InitMovements();
 
-            ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
-            Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
+        ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
+        Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
 
-            ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
-            Ahmadalli.log("AI: Mahdi.getWeakBorderNodes finished.");
+        ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
+        Ahmadalli.log("AI: Mahdi.getWeakBorderNodes finished.");
 
-            ArrayList<Node> untouchedNodes = Amirhosein.crave(world, weakBorderNodes);
-            Ahmadalli.log("AI: Amirhossein.crave finished.");
+        ArrayList<Node> untouchedNodes = Amirhosein.crave(world, weakBorderNodes);
+        Ahmadalli.log("AI: Amirhossein.crave finished.");
 
-            Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
-            Ahmadalli.log("AI: Amirhossein.findDis finished.");
+        Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
+        Ahmadalli.log("AI: Amirhossein.findDis finished.");
 
+        Map<Node, Mahdi.NodeBFSOutput> nearestEnemyDistance = Mahdi.FindNearestEnemyDistance(world, borderNodes);
+        Ahmadalli.log("AI: FindNearestEnemyDistance for borderNodes (count = " + borderNodes.size() + ") finished.");
 
-            Ahmadalli.log("AI: borderNodes (count = " + borderNodes.size() + ")");
-            for (Node node : borderNodes) {
-                Mahdi.MarzbananBePish(world, node);
-            }
-            Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
+        for (Node node : borderNodes) {
+            Mahdi.MarzbananBePish(world, node);
+        }
+        Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
 
-            Mahdi.taneLash(world, untouchedNodes, minDistanceToBorder);
-            Ahmadalli.log("AI: Mahdi.taneLash finished.");
+        try {
+            Mahdi.taneLash(world, untouchedNodes, borderNodes, nearestEnemyDistance);
+
+        } catch (Exception ex) {
+            Ahmadalli.log("EXCEPTION in taneLash. Calling taneLashOld...");
+            Mahdi.taneLashOld(world, untouchedNodes, minDistanceToBorder);
+        }
+        Ahmadalli.log("AI: Mahdi.taneLash finished.");
 /*        } catch (Exception ex) {
             Ahmadalli.log("EXCEPTION @ AI.java. " + ex.getMessage());
             layer1Move(world);
