@@ -313,7 +313,7 @@ public class Mahdi {
     }
 
 
-    public static NodeBFSOutput GetRouteToNodeGroup(World world, Node source, ArrayList<Node> nodes) {
+    public static NodeBFSOutput GetRouteToNodeGroup(World world, Node source, ArrayList<Node> nodes, ArrayList<Node> destinations) {
         Map<Node, NodeBFSData> data = new HashMap<>();
 
         for (Node i : nodes)
@@ -322,11 +322,11 @@ public class Mahdi {
 
         data.put(source, new NodeBFSData(source, null, 0));
 
-        Queue<Node> Q = new LinkedList<>();
+        Queue<Node> Q =  new LinkedList<>();
 
         Q.add(source);
 
-        Queue<Node> AttackCandidates = new LinkedList<>();
+        Queue<Node> pathCandidates = new LinkedList<>();
 
         while (Q.size() != 0) {
             Node current = Q.poll();
@@ -343,19 +343,19 @@ public class Mahdi {
                     if (data.get(neighbor).distance == Integer.MAX_VALUE) {
                         data.get(neighbor).distance = data.get(current).distance + 1;
                         data.get(neighbor).parent = current;
-                        if (neighbor.getOwner() == -1) {
+                        if (!destinations.contains(neighbor)) {
                             Q.add(neighbor);
                         } else {
-                            AttackCandidates.add(neighbor);
+                            pathCandidates.add(neighbor);
                         }
                     }
                 }
             }
         }
-        //AttackCandidates is already sorted by minimum distance.
+        //pathCandidates is already sorted by minimum distance.
         int counter = 0;
-        while (AttackCandidates.size() != 0) {
-            Node target = AttackCandidates.poll();
+        while (pathCandidates.size() != 0) {
+            Node target = pathCandidates.poll();
             Node n = target;
             while (data.get(n).parent != source) {
                 n = data.get(n).parent;
@@ -366,8 +366,7 @@ public class Mahdi {
                 }
             }
 
-            if (!IsMovingDest(n))
-                return new NodeBFSOutput(target, n, data.get(target).distance);
+            return new NodeBFSOutput(target, n, data.get(target).distance);
         }
         return null;
     }
@@ -381,7 +380,7 @@ public class Mahdi {
         for (Node i : Ahmadalli.getBorderNodes(world))
             nodes.add(i);
 
-        return GetRouteToNodeGroup(world, source, nodes);
+        return GetRouteToNodeGroup(world, source, nodes, new ArrayList<Node> (Arrays.asList(world.getOpponentNodes())));
     }
 
     public static boolean SomeoneElseIsAttacking(Node n) {
@@ -401,7 +400,9 @@ public class Mahdi {
 
         try {
             if ((GetClusterId(node, clusters) != mainClusterId) && (Ahmadalli.getEnemyNeighbors(node, false).size() > 0)) {
-                NodeBFSOutput route = Mahdi.GetRouteToNodeGroup(world, node, clusters.get(mainClusterId));
+                NodeBFSOutput route = Mahdi.GetRouteToNodeGroup(world, node,
+                        new ArrayList<Node> (Arrays.asList( world.getMap().getNodes())),
+                        clusters.get(mainClusterId));
 
                 if (route != null) {
                     Ahmadalli.log("method: Mahdi.MarzbananBePish (Go back to your mother) - from :" + node.getIndex() +
