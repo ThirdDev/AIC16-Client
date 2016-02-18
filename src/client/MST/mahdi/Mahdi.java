@@ -3,8 +3,10 @@ package client.MST.mahdi;
 import client.MST.ahmadalli.Ahmadalli;
 import client.MST.constants;
 import client.World;
+import client.model.Graph;
 import client.model.Node;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -310,13 +312,11 @@ public class Mahdi {
         Movement(n, smallestNeighbor, n.getArmyCount());
     }
 
-    public static NodeBFSOutput GetRouteToNearestEnemy(World world, Node source) {
+
+    public static NodeBFSOutput GetRouteToNodeGroup(World world, Node source, ArrayList<Node> nodes) {
         Map<Node, NodeBFSData> data = new HashMap<>();
-        for (Node i : world.getFreeNodes())
-            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
-        for (Node i : world.getOpponentNodes())
-            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
-        for (Node i : Ahmadalli.getBorderNodes(world))
+
+        for (Node i : nodes)
             if (i != source)
                 data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
 
@@ -372,13 +372,44 @@ public class Mahdi {
         return null;
     }
 
+    public static NodeBFSOutput GetRouteToNearestEnemy(World world, Node source) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Node i : world.getFreeNodes())
+            nodes.add(i);
+        for (Node i : world.getOpponentNodes())
+            nodes.add(i);
+        for (Node i : Ahmadalli.getBorderNodes(world))
+            nodes.add(i);
+
+        return GetRouteToNodeGroup(world, source, nodes);
+    }
+
     public static boolean SomeoneElseIsAttacking(Node n) {
         return IsMovingDest(n);
     }
 
-    public static void MarzbananBePish(World world, Node node) {
-        NodeBFSOutput route = Mahdi.GetRouteToNearestEnemy(world, node);
+    public static int GetClusterId(Node node, ArrayList<ArrayList<Node>> clusters) throws Exception {
+        for (int i = 0; i < clusters.size(); i++)
+            if (clusters.get(i).contains(node))
+                return i;
+        Ahmadalli.log("EXCEPTION! GetClusterId, node #" + node.getIndex() + " not found in any of our clusters.");
+        throw new Exception();
+    }
+
+    public static void MarzbananBePish(World world, Node node, ArrayList<ArrayList<Node>> clusters) {
+        int mainClusterId = FindMainClusterId(clusters);
+
         try {
+            if ((GetClusterId(node, clusters) != mainClusterId) && (Ahmadalli.getEnemyNeighbors(node, false).size() > 0)) {
+                NodeBFSOutput route = Mahdi.GetRouteToNodeGroup(world, node, clusters.get(mainClusterId));
+
+                if (route != null) {
+                    Mahdi.Movement(node, route.nextInPath, node.getArmyCount());
+                    return;
+                }
+            }
+            NodeBFSOutput route = Mahdi.GetRouteToNearestEnemy(world, node);
+
             if (route != null) {
                 if (route.totalDistance <= constants.EnemySoCloseDistance) {
                     if ((route.target.getArmyCount() <= Ahmadalli.getNodeState(node))
@@ -396,10 +427,20 @@ public class Mahdi {
             } else { //Fall back on previous method.
                 PreviousMarzbananAlgorithm(world, node);
             }
+
+
         } catch (Exception ex) {
             Ahmadalli.log("EXCEPTION IN MarzbananBePish.");
             PreviousMarzbananAlgorithm(world, node);
         }
+    }
+
+    private static int FindMainClusterId(ArrayList<ArrayList<Node>> clusters) {
+        int main = 0;
+        for (int i = 1; i < clusters.size(); i++)
+            if (clusters.get(i).size() > clusters.get(main).size())
+                main = i;
+        return main;
     }
 
     public static void PreviousMarzbananAlgorithm(World world, Node node) {
@@ -448,4 +489,28 @@ public class Mahdi {
         Collections.reverse(path);
         return path;
     }
+
+    public static ArrayList<ArrayList<Node>> GetOurClusters(World world) {
+        ArrayList<Node> map = new ArrayList<>(Arrays.asList(world.getMyNodes()));
+        ArrayList<ArrayList<Node>> output = new ArrayList<>();
+
+        while (map.size() > 0) {
+            ArrayList<Node> part = new ArrayList<>();
+            GetCluster(map, map.get(0), part);
+            output.add(part);
+        }
+        return output;
+    }
+
+    private static void GetCluster(ArrayList<Node> map, Node node, ArrayList<Node> output) {
+        map.remove(node);
+        output.add(node);
+        for (Node i : Ahmadalli.getFriendlyNeighbors(node, false)) {
+            if (map.contains(i)) {
+                GetCluster(map, i, output);
+            }
+        }
+    }
+
+
 }

@@ -28,6 +28,9 @@ public class AI {
         //try {
         Mahdi.InitMovements();
 
+        ArrayList<ArrayList<Node>> clusters = Mahdi.GetOurClusters(world);
+        Ahmadalli.log("AI: Mahdi.GetOurClusters finished, found " + clusters.size() + " clusters.");
+
         ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
         Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
 
@@ -44,7 +47,7 @@ public class AI {
         Ahmadalli.log("AI: FindNearestEnemyDistance for borderNodes (count = " + borderNodes.size() + ") finished.");
 
         for (Node node : borderNodes) {
-            Mahdi.MarzbananBePish(world, node);
+            Mahdi.MarzbananBePish(world, node, clusters);
         }
         Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
 
