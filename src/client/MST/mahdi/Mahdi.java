@@ -93,6 +93,8 @@ public class Mahdi {
                 double bestVal = Integer.MAX_VALUE;
                 ArrayList<Node> bestPath = null;
                 for (Node b : borderNodes) {
+                    if (nearestEnemyDistance.get(b) == null)
+                        continue;
                     ArrayList<Node> path = GetPath(world, node, b);
                     double val = path.size() * constants.taneLashC1
                             + nearestEnemyDistance.get(b).totalDistance * constants.taneLashC2;
