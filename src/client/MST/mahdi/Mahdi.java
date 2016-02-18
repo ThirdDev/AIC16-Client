@@ -313,7 +313,7 @@ public class Mahdi {
     }
 
 
-    public static NodeBFSOutput GetRouteToNodeGroup(World world, Node source, ArrayList<Node> nodes, ArrayList<Node> destinations) {
+    public static NodeBFSOutput GetRouteToNodeGroup(World world, Node source, ArrayList<Node> nodes, ArrayList<Node> destinations, boolean allowMultipleMovementsToDest) {
         Map<Node, NodeBFSData> data = new HashMap<>();
 
         for (Node i : nodes)
@@ -366,7 +366,8 @@ public class Mahdi {
                 }
             }
 
-            return new NodeBFSOutput(target, n, data.get(target).distance);
+            if ((allowMultipleMovementsToDest) || (!IsMovingDest(n)))
+                return new NodeBFSOutput(target, n, data.get(target).distance);
         }
         return null;
     }
@@ -380,7 +381,7 @@ public class Mahdi {
         for (Node i : Ahmadalli.getBorderNodes(world))
             nodes.add(i);
 
-        return GetRouteToNodeGroup(world, source, nodes, new ArrayList<Node> (Arrays.asList(world.getOpponentNodes())));
+        return GetRouteToNodeGroup(world, source, nodes, new ArrayList<Node> (Arrays.asList(world.getOpponentNodes())), false);
     }
 
     public static boolean SomeoneElseIsAttacking(Node n) {
@@ -402,7 +403,7 @@ public class Mahdi {
             if ((GetClusterId(node, clusters) != mainClusterId) && (Ahmadalli.getEnemyNeighbors(node, false).size() > 0)) {
                 NodeBFSOutput route = Mahdi.GetRouteToNodeGroup(world, node,
                         new ArrayList<Node> (Arrays.asList( world.getMap().getNodes())),
-                        clusters.get(mainClusterId));
+                        clusters.get(mainClusterId), true);
 
                 if (route != null) {
                     Ahmadalli.log("method: Mahdi.MarzbananBePish (Go back to your mother) - from :" + node.getIndex() +
