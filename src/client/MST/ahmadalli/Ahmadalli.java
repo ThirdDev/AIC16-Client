@@ -1,9 +1,9 @@
 package client.MST.ahmadalli;
 
+import client.MST.constants;
 import client.MST.mahdi.Mahdi;
 import client.World;
 import client.model.Node;
-import client.MST.constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -134,7 +134,12 @@ public class Ahmadalli {
     }
 
     public static void log(String text) {
-        System.out.println(text);
+        log(text, 1);
+    }
+
+    public static void log(String text, int level) {
+        if (level <= 1)
+            System.out.println(text);
     }
 
 }
