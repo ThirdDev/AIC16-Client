@@ -91,6 +91,7 @@ public class Mahdi {
             if (node.getOwner() == world.getMyID()) {
 
                 double bestVal = Integer.MAX_VALUE;
+                Node bestNode = null;
                 ArrayList<Node> bestPath = null;
                 for (Node b : borderNodes) {
                     if (nearestEnemyDistance.get(b) == null)
@@ -99,9 +100,12 @@ public class Mahdi {
                     double val = path.size() * constants.taneLashC1
                             + nearestEnemyDistance.get(b).totalDistance * constants.taneLashC2;
 
-                    if (val < bestVal) {
+                    if ((val < bestVal) ||
+                            ((val == bestVal) && (bestNode != null) &&
+                                    (nearestEnemyDistance.get(b).totalDistance < nearestEnemyDistance.get(bestNode).totalDistance))) {
                         bestVal = val;
                         bestPath = path;
+                        bestNode = b;
                     }
                 }
 
