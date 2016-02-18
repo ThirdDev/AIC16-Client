@@ -165,4 +165,25 @@ public class Amirhosein
         }
         return ret;
     }
+
+
+    public ArrayList<Node> path(World world ,Node sc , Node dis )
+    {
+        Queue<Node> q = new LinkedList<>();
+        ArrayList <Node> pt = new ArrayList<>();
+        q.add(sc);
+        int mark[] = new int[world.getMap().getNodes().length];
+        for(int i = 0 ;i < world.getMap().getNodes().length ; i++)
+        {
+            mark[i] = 0;
+        }
+        while(q.size()>0)
+        {
+
+        }
+
+
+        return pt;
+    }
 }
+
