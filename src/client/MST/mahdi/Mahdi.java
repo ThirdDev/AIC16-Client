@@ -415,19 +415,21 @@ public class Mahdi {
             NodeBFSOutput route = Mahdi.GetRouteToNearestEnemy(world, node);
 
             if (route != null) {
+                double criticalFactor = GetCriticalFactor(world, node);
+
                 if (route.totalDistance <= constants.EnemySoCloseDistance) {
                     if ((route.target.getArmyCount() <= Ahmadalli.getNodeState(node))
                             || (SomeoneElseIsAttacking(route.target))) {
                         Ahmadalli.log("method: Mahdi.MarzbananBePish (Attack) - from:" + node.getIndex() +
-                                " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1));
-                        Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1));
+                                " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1 * criticalFactor));
+                        Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1 * criticalFactor));
                     } else {
                         Mahdi.Escape(node);
                     }
                 } else { //There's no enemy in distance == 1 of this node, so this node is safe.
                     Ahmadalli.log("method: Mahdi.MarzbananBePish (Safe zone) - from :" + node.getIndex() +
-                            " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
-                    Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
+                            " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * criticalFactor * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
+                    Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * criticalFactor * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
                 }
 
             } else { //Fall back on previous method.
@@ -439,6 +441,14 @@ public class Mahdi {
             Ahmadalli.log("EXCEPTION IN MarzbananBePish.");
             PreviousMarzbananAlgorithm(world, node);
         }
+    }
+
+    private static double GetCriticalFactor(World world, Node node) {
+        if ((node.getNeighbours().length >= constants.CriticalBorderEdgeCount)
+            && (Mahdi.GetRouteToNearestEnemy(world, node).totalDistance <= constants.CriticalBorderMaxDistanceFromEnemy)
+            && (Ahmadalli.getEnemyNeighbors(node, true).size() > 1))
+            return constants.CriticalBorderFactor;
+        return 1;
     }
 
     private static int FindMainClusterId(ArrayList<ArrayList<Node>> clusters) {
@@ -519,7 +529,8 @@ public class Mahdi {
             if (Ahmadalli.getFriendlyNeighbors(i, false).size() == 0) {
                 for (Node j : i.getNeighbours()) {
                     if (j.getOwner() == world.getMyID()) {
-                        if ((Ahmadalli.isBorderNode(j)) && (Ahmadalli.getEnemyNeighbors(j, false).size() >= 2))
+                        if ((Ahmadalli.isBorderNode(j))
+                                && (Ahmadalli.getEnemyNeighbors(j, false).size() >= 2))
                             continue;
                         if (Mahdi.IsMovingSrc(j))
                             Mahdi.CancelMovementSrc(j);

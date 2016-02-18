@@ -30,4 +30,8 @@ public final class constants { //todo: rename coefficients
 
     public static final double HaramC = 0.9;
     public static final int HaramV = 0;
+
+    public static final int CriticalBorderEdgeCount = 3;
+    public static final double CriticalBorderFactor = 0.35;
+    public static final int CriticalBorderMaxDistanceFromEnemy = 2;
 }
