@@ -43,14 +43,18 @@ public class AI {
         Map<Node, Mahdi.NodeBFSOutput> nearestEnemyDistance = Mahdi.FindNearestEnemyDistance(world, borderNodes);
         Ahmadalli.log("AI: FindNearestEnemyDistance for borderNodes (count = " + borderNodes.size() + ") finished.");
 
+        ArrayList<Node> escapingNodes = new ArrayList<>();
         for (Node node : borderNodes) {
-            Mahdi.MarzbananBePish(world, node);
+            if (Mahdi.MarzbananBePish(world, node) == false) {
+                escapingNodes.add(node);
+            }
         }
         Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
 
-        try {
-            Mahdi.taneLash(world, untouchedNodes, borderNodes, nearestEnemyDistance);
+        untouchedNodes.addAll(Mahdi.GetMovelessNodes(world));
 
+        try {
+            Mahdi.taneLash(world, untouchedNodes, borderNodes, nearestEnemyDistance, escapingNodes);
         } catch (Exception ex) {
             Ahmadalli.log("EXCEPTION in taneLash. Calling taneLashOld...");
             Mahdi.taneLashOld(world, untouchedNodes, minDistanceToBorder);
