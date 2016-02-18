@@ -372,12 +372,17 @@ public class Mahdi {
         return null;
     }
 
+    public static boolean SomeoneElseIsAttacking(Node n) {
+        return IsMovingDest(n);
+    }
+
     public static void MarzbananBePish(World world, Node node) {
         NodeBFSOutput route = Mahdi.GetRouteToNearestEnemy(world, node);
         try {
             if (route != null) {
                 if (route.totalDistance <= constants.EnemySoCloseDistance) {
-                    if (route.target.getArmyCount() <= Ahmadalli.getNodeState(node)) {
+                    if ((route.target.getArmyCount() <= Ahmadalli.getNodeState(node))
+                            || (SomeoneElseIsAttacking(route.target))) {
                         Ahmadalli.log("method: Mahdi.MarzbananBePish (Escape) - from:" + node.getIndex() +
                                 " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1));
                         Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1));
