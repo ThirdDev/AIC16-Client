@@ -416,7 +416,7 @@ public class Mahdi {
                 if (route.totalDistance <= constants.EnemySoCloseDistance) {
                     if ((route.target.getArmyCount() <= Ahmadalli.getNodeState(node))
                             || (SomeoneElseIsAttacking(route.target))) {
-                        Ahmadalli.log("method: Mahdi.MarzbananBePish (Escape) - from:" + node.getIndex() +
+                        Ahmadalli.log("method: Mahdi.MarzbananBePish (Attack) - from:" + node.getIndex() +
                                 " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1));
                         Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1));
                     } else {
