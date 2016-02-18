@@ -86,6 +86,8 @@ public class Mahdi {
 
     public static void taneLash(World world, ArrayList<Node> untouchedNodes, ArrayList<Node> borderNodes, Map<Node, NodeBFSOutput> nearestEnemyDistance) {
         for (Node node : untouchedNodes) {
+            if (borderNodes.contains(node))
+                continue;
             if (node.getOwner() == world.getMyID()) {
 
                 double bestVal = Integer.MAX_VALUE;
@@ -323,7 +325,14 @@ public class Mahdi {
         while (Q.size() != 0) {
             Node current = Q.poll();
 
-            for (Node neighbor : current.getNeighbours()) {
+            ArrayList<Node> neighbors = new ArrayList<>(Arrays.asList(current.getNeighbours()));
+            Collections.sort(neighbors, new Comparator<Node>() {
+                @Override
+                public int compare(Node a, Node b) {
+                    return Integer.signum(-(a.getArmyCount() - b.getArmyCount()));
+                }
+            });
+            for (Node neighbor : neighbors) {
                 if (neighbor.getOwner() != world.getMyID()) {
                     if (data.get(neighbor).distance == Integer.MAX_VALUE) {
                         data.get(neighbor).distance = data.get(current).distance + 1;
@@ -376,8 +385,7 @@ public class Mahdi {
             } else { //Fall back on previous method.
                 PreviousMarzbananAlgorithm(world, node);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Ahmadalli.log("EXCEPTION IN MarzbananBePish.");
             PreviousMarzbananAlgorithm(world, node);
         }
@@ -411,7 +419,7 @@ public class Mahdi {
             if (current == dest)
                 break;
 
-            for (Node neighbor: current.getNeighbours()) {
+            for (Node neighbor : current.getNeighbours()) {
                 if (data.get(neighbor).distance == Integer.MAX_VALUE) {
                     data.get(neighbor).distance = data.get(current).distance + 1;
                     data.get(neighbor).parent = current;
