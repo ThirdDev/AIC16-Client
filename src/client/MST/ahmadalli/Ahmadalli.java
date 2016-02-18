@@ -16,7 +16,7 @@ public class Ahmadalli {
     public static ArrayList<Node> getEnemyNeighbors(Node node, boolean emptyNeighbors) {
         ArrayList<Node> nodes = new ArrayList<>();
         for (Node neighbor : node.getNeighbours()) {
-            if ((neighbor.getOwner() != node.getOwner() &&neighbor.getOwner() != -1) || (emptyNeighbors && neighbor.getOwner() == -1)) {
+            if ((neighbor.getOwner() != node.getOwner() && neighbor.getOwner() != -1) || (emptyNeighbors && neighbor.getOwner() == -1)) {
                 nodes.add(neighbor);
             }
         }
