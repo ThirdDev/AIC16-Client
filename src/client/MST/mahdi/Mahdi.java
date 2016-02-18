@@ -84,18 +84,17 @@ public class Mahdi {
         return output;
     }
 
-    public static void taneLash(World world, ArrayList<Node> untouchedNodes, ArrayList<Node> borderNodes, Map<Node, NodeBFSOutput> nearestEnemyDistance, ArrayList<Node> escapingNodes) {
+    public static void taneLash(World world, ArrayList<Node> untouchedNodes, ArrayList<Node> borderNodes, Map<Node, NodeBFSOutput> nearestEnemyDistance) {
         for (Node node : untouchedNodes) {
             if (borderNodes.contains(node))
                 continue;
             if (node.getOwner() == world.getMyID()) {
+
                 double bestVal = Integer.MAX_VALUE;
                 Node bestNode = null;
                 ArrayList<Node> bestPath = null;
                 for (Node b : borderNodes) {
                     if (nearestEnemyDistance.get(b) == null)
-                        continue;
-                    if (escapingNodes.contains(b))
                         continue;
                     ArrayList<Node> path = GetPath(world, node, b);
                     double val = path.size() * constants.taneLashC1
@@ -242,22 +241,6 @@ public class Mahdi {
             }
     }
 
-    public static ArrayList<Node> GetMovelessNodes(World world) {
-        ArrayList<Node> output = new ArrayList<>();
-        for (Node i : world.getMyNodes()) {
-            boolean flag = false;
-            for (int j = 0; j < attacks.size(); j++)
-                if (attacks.get(j).source == i) {
-                    flag = true;
-                    break;
-                }
-            if (flag == false) {
-                output.add(i);
-            }
-        }
-        return output;
-    }
-
     public static boolean Movement(Node src, Node dest, int count) {
         if (count <= 0) {
             Ahmadalli.log("Invalid Movement Command from " + src.getIndex() + " to " + dest.getIndex() + " with count of " + count);
@@ -389,7 +372,7 @@ public class Mahdi {
         return null;
     }
 
-    public static boolean MarzbananBePish(World world, Node node) {
+    public static void MarzbananBePish(World world, Node node) {
         NodeBFSOutput route = Mahdi.GetRouteToNearestEnemy(world, node);
         try {
             if (route != null) {
@@ -400,7 +383,6 @@ public class Mahdi {
                         Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1));
                     } else {
                         Mahdi.Escape(node);
-                        return false;
                     }
                 } else { //There's no enemy in distance == 1 of this node, so this node is safe.
                     Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
@@ -413,7 +395,6 @@ public class Mahdi {
             Ahmadalli.log("EXCEPTION IN MarzbananBePish.");
             PreviousMarzbananAlgorithm(world, node);
         }
-        return true;
     }
 
     public static void PreviousMarzbananAlgorithm(World world, Node node) {
@@ -462,5 +443,4 @@ public class Mahdi {
         Collections.reverse(path);
         return path;
     }
-
 }
