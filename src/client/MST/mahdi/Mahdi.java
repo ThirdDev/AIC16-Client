@@ -518,5 +518,21 @@ public class Mahdi {
         }
     }
 
+    public static void ModafeaneHaram(World world) {
+        for (Node i : world.getOpponentNodes()) {
+            if (Ahmadalli.getFriendlyNeighbors(i, false).size() == 0) {
+                for (Node j : i.getNeighbours()) {
+                    if (j.getOwner() == world.getMyID()) {
+                        if (Mahdi.IsMovingSrc(j))
+                            Mahdi.CancelMovementSrc(j);
+                        Mahdi.Movement(j,i,(int)(j.getArmyCount() * constants.HaramC - constants.HaramV));
+                        Ahmadalli.log("method: Mahdi.ModafeaneHaram - from: " + j.getIndex() +
+                                " - to: " + i.getIndex() + " - army: " + (int)(j.getArmyCount() * constants.HaramC - constants.HaramV));
+                    }
+                }
+            }
+        }
+    }
+
 
 }

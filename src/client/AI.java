@@ -59,6 +59,9 @@ public class AI {
             Mahdi.taneLashOld(world, untouchedNodes, minDistanceToBorder);
         }
         Ahmadalli.log("AI: Mahdi.taneLash finished.");
+
+        Mahdi.ModafeaneHaram(world);
+        Ahmadalli.log("AI: Mahdi.ModafeaneHaram finished.");
 /*        } catch (Exception ex) {
             Ahmadalli.log("EXCEPTION @ AI.java. " + ex.getMessage());
             layer1Move(world);
