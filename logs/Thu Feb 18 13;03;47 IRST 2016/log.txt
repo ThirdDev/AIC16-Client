@@ -1,0 +1,382 @@
+"C:\Program Files\Java\jdk1.8.0_73\bin\java" -Didea.launcher.port=7534 "-Didea.launcher.bin.path=C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 15.0.3\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\Java\jdk1.8.0_73\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\zipfs.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar;D:\Projects\AIChallenge2016\bin;D:\Projects\AIChallenge2016\libs\gson-2.3.1.jar;C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 15.0.3\lib\idea_rt.jar" com.intellij.rt.execution.application.AppMain client.Main
+--------
+Cycle #0
+We currently have 3 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:11 - to: 12 - army: 7
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 2) finished.
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+AI: Mahdi.taneLash finished.
+--------
+Cycle #1
+We currently have 5 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:11 - to: 12 - army: 2
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 4) finished.
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+AI: Mahdi.taneLash finished.
+--------
+Cycle #2
+We currently have 8 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:15 - to: 17 - army: 3
+method: amirhosein.crave - section: getFromNonBoarder - from:16 - to: 30 - army: 3
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 3) finished.
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:12 - to: 15 - army: 5
+method: Mahdi.taneLash - from:13 - to: 14 - army: 5
+AI: Mahdi.taneLash finished.
+--------
+Cycle #3
+We currently have 11 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 5
+method: amirhosein.crave - section: getFromNonBoarder - from:17 - to: 18 - army: 5
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 3) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:18 - to: 32 - army: 19
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:12 - to: 15 - army: 5
+method: Mahdi.taneLash - from:13 - to: 16 - army: 3
+method: Mahdi.taneLash - from:14 - to: 15 - army: 10
+method: Mahdi.taneLash - from:15 - to: 17 - army: 8
+method: Mahdi.taneLash - from:16 - to: 30 - army: 3
+AI: Mahdi.taneLash finished.
+--------
+Cycle #4
+We currently have 12 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 5
+method: amirhosein.crave - section: getFromNonBoarder - from:17 - to: 18 - army: 10
+method: amirhosein.crave - section: getFromNonBoarder - from:14 - to: 20 - army: 5
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 4) finished.
+method: Mahdi.Escape (Escape) - from:8 - to: 30 - army: 8
+method: Mahdi.Escape (Escape) - from:18 - to: 17 - army: 6
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 13 - army: 2
+method: Mahdi.taneLash - from:12 - to: 15 - army: 5
+method: Mahdi.taneLash - from:13 - to: 16 - army: 3
+method: Mahdi.taneLash - from:15 - to: 17 - army: 18
+method: Mahdi.taneLash - from:16 - to: 30 - army: 6
+AI: Mahdi.taneLash finished.
+--------
+Cycle #5
+We currently have 12 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:14 - to: 20 - army: 5
+method: amirhosein.crave - section: getFromNonBoarder - from:21 - to: 20 - army: 2
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 5) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:17 - to: 18 - army: 35
+method: Mahdi.MarzbananBePish (Escape) - from:30 - to: 8 - army: 20
+method: Mahdi.GoGrabOwnerlessNodes - from:20 - to: 26 - army: 2
+method: Mahdi.MarzbananBePish (Escape) - from:10 - to: 9 - army: 20
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:12 - to: 15 - army: 3
+method: Mahdi.taneLash - from:13 - to: 16 - army: 5
+method: Mahdi.taneLash - from:15 - to: 17 - army: 8
+method: Mahdi.taneLash - from:16 - to: 30 - army: 6
+AI: Mahdi.taneLash finished.
+--------
+Cycle #6
+We currently have 17 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 8
+method: amirhosein.crave - section: getFromNonBoarder - from:21 - to: 10 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:25 - to: 22 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:17 - to: 18 - army: 10
+method: amirhosein.crave - section: getFromNonBoarder - from:20 - to: 26 - army: 17
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 6) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:8 - to: 7 - army: 8
+method: Mahdi.MarzbananBePish (Escape) - from:9 - to: 6 - army: 22
+method: Mahdi.Escape (Escape) - from:10 - to: 9 - army: 3
+method: Mahdi.MarzbananBePish (Escape) - from:22 - to: 33 - army: 13
+method: Mahdi.MarzbananBePish (Escape) - from:18 - to: 32 - army: 19
+method: Mahdi.GoGrabOwnerlessNodes - from:26 - to: 27 - army: 1
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 13 - army: 2
+method: Mahdi.taneLash - from:12 - to: 15 - army: 5
+method: Mahdi.taneLash - from:13 - to: 16 - army: 3
+method: Mahdi.taneLash - from:14 - to: 16 - army: 5
+method: Mahdi.taneLash - from:15 - to: 17 - army: 6
+method: Mahdi.taneLash - from:16 - to: 30 - army: 8
+AI: Mahdi.taneLash finished.
+--------
+Cycle #7
+We currently have 16 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 10
+method: amirhosein.crave - section: getFromNonBoarder - from:20 - to: 21 - army: 4
+method: amirhosein.crave - section: getFromNonBoarder - from:14 - to: 20 - army: 5
+method: amirhosein.crave - section: getFromNonBoarder - from:17 - to: 18 - army: 8
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 5) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:8 - to: 7 - army: 9
+method: Mahdi.Escape (Poor Alone Node) - from:9 - to: 6 - army: 5
+method: Mahdi.Escape (Escape) - from:21 - to: 20 - army: 3
+method: Mahdi.MarzbananBePish (Escape) - from:25 - to: 22 - army: 3
+method: Mahdi.MarzbananBePish (Escape) - from:18 - to: 32 - army: 12
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 13 - army: 2
+method: Mahdi.taneLash - from:12 - to: 14 - army: 3
+method: Mahdi.taneLash - from:13 - to: 16 - army: 5
+method: Mahdi.taneLash - from:15 - to: 17 - army: 8
+method: Mahdi.taneLash - from:16 - to: 30 - army: 11
+method: Mahdi.taneLash - from:26 - to: 20 - army: 25
+method: Mahdi.taneLash - from:27 - to: 26 - army: 6
+AI: Mahdi.taneLash finished.
+--------
+Cycle #8
+We currently have 15 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 13
+method: amirhosein.crave - section: getFromNonBoarder - from:17 - to: 18 - army: 10
+method: amirhosein.crave - section: getFromNonBoarder - from:14 - to: 20 - army: 8
+method: amirhosein.crave - section: getFromNonBoarder - from:15 - to: 17 - army: 3
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 5) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:8 - to: 7 - army: 13
+method: Mahdi.MarzbananBePish (Escape) - from:18 - to: 35 - army: 10
+method: Mahdi.MarzbananBePish (Escape) - from:20 - to: 25 - army: 40
+method: Mahdi.MarzbananBePish (Escape) - from:21 - to: 10 - army: 1
+method: Mahdi.MarzbananBePish (Escape) - from:32 - to: 19 - army: 11
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:12 - to: 14 - army: 3
+method: Mahdi.taneLash - from:13 - to: 14 - army: 5
+method: Mahdi.taneLash - from:16 - to: 30 - army: 8
+method: Mahdi.taneLash - from:26 - to: 20 - army: 8
+method: Mahdi.taneLash - from:27 - to: 26 - army: 1
+AI: Mahdi.taneLash finished.
+--------
+Cycle #9
+We currently have 17 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 10
+method: amirhosein.crave - section: getFromNonBoarder - from:32 - to: 19 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:14 - to: 20 - army: 13
+method: amirhosein.crave - section: getFromNonBoarder - from:18 - to: 35 - army: 13
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 5) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:8 - to: 7 - army: 14
+method: Mahdi.Escape (Escape) - from:19 - to: 32 - army: 10
+method: Mahdi.MarzbananBePish (Escape) - from:20 - to: 21 - army: 19
+method: Mahdi.MarzbananBePish (Escape) - from:25 - to: 22 - army: 36
+method: Mahdi.MarzbananBePish (Escape) - from:35 - to: 23 - army: 8
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:12 - to: 14 - army: 5
+method: Mahdi.taneLash - from:13 - to: 14 - army: 3
+method: Mahdi.taneLash - from:15 - to: 14 - army: 3
+method: Mahdi.taneLash - from:16 - to: 30 - army: 3
+method: Mahdi.taneLash - from:17 - to: 18 - army: 5
+method: Mahdi.taneLash - from:26 - to: 20 - army: 3
+method: Mahdi.taneLash - from:27 - to: 26 - army: 1
+AI: Mahdi.taneLash finished.
+--------
+Cycle #10
+We currently have 19 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:8 - to: 7 - army: 12
+method: amirhosein.crave - section: getFromNonBoarder - from:20 - to: 21 - army: 20
+method: amirhosein.crave - section: getFromNonBoarder - from:18 - to: 35 - army: 8
+method: amirhosein.crave - section: getFromNonBoarder - from:14 - to: 20 - army: 16
+method: amirhosein.crave - section: getFromNonBoarder - from:17 - to: 18 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:15 - to: 17 - army: 3
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 6) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:7 - to: 31 - army: 16
+method: Mahdi.MarzbananBePish (Escape) - from:21 - to: 10 - army: 19
+method: Mahdi.Escape (Escape) - from:23 - to: 35 - army: 9
+method: Mahdi.Escape (Escape) - from:25 - to: 20 - army: 3
+method: Mahdi.MarzbananBePish (Escape) - from:32 - to: 19 - army: 13
+method: Mahdi.GoGrabOwnerlessNodes - from:35 - to: 36 - army: 3
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:12 - to: 14 - army: 5
+method: Mahdi.taneLash - from:13 - to: 14 - army: 3
+method: Mahdi.taneLash - from:16 - to: 30 - army: 3
+method: Mahdi.taneLash - from:26 - to: 20 - army: 3
+method: Mahdi.taneLash - from:27 - to: 26 - army: 1
+method: Mahdi.taneLash - from:30 - to: 8 - army: 5
+AI: Mahdi.taneLash finished.
+--------
+Cycle #11
+We currently have 19 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:8 - to: 7 - army: 7
+method: amirhosein.crave - section: getFromNonBoarder - from:17 - to: 18 - army: 5
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 5
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 6) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:7 - to: 33 - army: 13
+method: Mahdi.Escape (Escape) - from:10 - to: 21 - army: 24
+method: Mahdi.Escape (Escape) - from:18 - to: 17 - army: 4
+method: Mahdi.Escape (Escape) - from:20 - to: 26 - army: 25
+method: Mahdi.Escape (Escape) - from:31 - to: 7 - army: 7
+method: Mahdi.MarzbananBePish (Escape) - from:35 - to: 23 - army: 31
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:12 - to: 14 - army: 5
+method: Mahdi.taneLash - from:13 - to: 14 - army: 3
+method: Mahdi.taneLash - from:14 - to: 20 - army: 13
+method: Mahdi.taneLash - from:15 - to: 17 - army: 3
+method: Mahdi.taneLash - from:16 - to: 14 - army: 3
+method: Mahdi.taneLash - from:21 - to: 10 - army: 22
+method: Mahdi.taneLash - from:26 - to: 20 - army: 3
+method: Mahdi.taneLash - from:27 - to: 26 - army: 1
+method: Mahdi.taneLash - from:36 - to: 35 - army: 8
+AI: Mahdi.taneLash finished.
+--------
+Cycle #12
+We currently have 17 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:8 - to: 7 - army: 7
+method: amirhosein.crave - section: getFromNonBoarder - from:12 - to: 14 - army: 5
+method: amirhosein.crave - section: getFromNonBoarder - from:15 - to: 17 - army: 3
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:36 - to: 35 - army: 1
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 8) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:7 - to: 31 - army: 16
+method: Mahdi.Escape (Escape) - from:14 - to: 12 - army: 17
+method: Mahdi.MarzbananBePish (Escape) - from:17 - to: 18 - army: 13
+method: Mahdi.Escape (Poor Alone Node) - from:21 - to: 10 - army: 28
+method: Mahdi.MarzbananBePish (Escape) - from:23 - to: 24 - army: 33
+method: Mahdi.Escape (Escape) - from:26 - to: 27 - army: 29
+method: Mahdi.MarzbananBePish (Escape) - from:33 - to: 22 - army: 14
+method: Mahdi.Escape (Escape) - from:35 - to: 23 - army: 10
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:11 - to: 12 - army: 2
+method: Mahdi.taneLash - from:13 - to: 14 - army: 3
+method: Mahdi.taneLash - from:16 - to: 14 - army: 3
+method: Mahdi.taneLash - from:27 - to: 26 - army: 1
+AI: Mahdi.taneLash finished.
+--------
+Cycle #13
+We currently have 15 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:8 - to: 7 - army: 4
+method: amirhosein.crave - section: getFromNonBoarder - from:11 - to: 13 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 16 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:27 - to: 26 - army: 30
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 11) finished.
+method: Mahdi.Escape (Escape) - from:7 - to: 8 - army: 6
+method: Mahdi.Escape (Escape) - from:12 - to: 11 - army: 28
+method: Mahdi.Escape (Escape) - from:13 - to: 16 - army: 2
+method: Mahdi.Escape (Escape) - from:15 - to: 12 - army: 4
+method: Mahdi.Escape (Escape) - from:16 - to: 13 - army: 4
+method: Mahdi.Escape (Escape) - from:17 - to: 15 - army: 6
+method: Mahdi.MarzbananBePish (Escape) - from:22 - to: 10 - army: 16
+method: Mahdi.MarzbananBePish (Escape) - from:23 - to: 35 - army: 11
+method: Mahdi.MarzbananBePish (Escape) - from:24 - to: 6 - army: 35
+method: Mahdi.MarzbananBePish (Escape) - from:26 - to: 20 - army: 2
+method: Mahdi.Escape (Poor Alone Node) - from:36 - to: 35 - army: 1
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+AI: Mahdi.taneLash finished.
+--------
+Cycle #14
+We currently have 13 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:24 - to: 6 - army: 2
+method: amirhosein.crave - section: getFromNonBoarder - from:30 - to: 8 - army: 4
+method: amirhosein.crave - section: getFromNonBoarder - from:23 - to: 10 - army: 3
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 9) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:6 - to: 3 - army: 19
+method: Mahdi.MarzbananBePish (Escape) - from:8 - to: 7 - army: 11
+method: Mahdi.MarzbananBePish (Escape) - from:10 - to: 9 - army: 10
+method: Mahdi.MarzbananBePish (Escape) - from:11 - to: 13 - army: 33
+method: Mahdi.MarzbananBePish (Escape) - from:12 - to: 14 - army: 6
+method: Mahdi.Escape (Escape) - from:15 - to: 12 - army: 7
+method: Mahdi.Escape (Escape) - from:16 - to: 30 - army: 3
+method: Mahdi.MarzbananBePish (Escape) - from:26 - to: 20 - army: 31
+method: Mahdi.MarzbananBePish (Escape) - from:35 - to: 36 - army: 16
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+method: Mahdi.taneLash - from:27 - to: 26 - army: 1
+AI: Mahdi.taneLash finished.
+--------
+Cycle #15
+We currently have 9 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+method: amirhosein.crave - section: getFromNonBoarder - from:11 - to: 12 - army: 2
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 8) finished.
+method: Mahdi.Escape (Poor Alone Node) - from:9 - to: 6 - army: 10
+method: Mahdi.Escape (Escape) - from:12 - to: 11 - army: 9
+method: Mahdi.MarzbananBePish (Escape) - from:13 - to: 16 - army: 39
+method: Mahdi.Escape (Escape) - from:14 - to: 12 - army: 10
+method: Mahdi.Escape (Escape) - from:23 - to: 24 - army: 3
+method: ahmadalli.attackWeakestNearEnemy - from:24 - to: 6 - army: 3
+method: Mahdi.Escape (Poor Alone Node) - from:27 - to: 26 - army: 1
+method: Mahdi.Escape (Poor Alone Node) - from:30 - to: 8 - army: 5
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+AI: Mahdi.taneLash finished.
+--------
+Cycle #16
+We currently have 4 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 4) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:11 - to: 12 - army: 14
+method: Mahdi.Escape (Escape) - from:13 - to: 11 - army: 2
+method: Mahdi.MarzbananBePish (Escape) - from:16 - to: 14 - army: 44
+method: Mahdi.Escape (Poor Alone Node) - from:24 - to: 6 - army: 5
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+AI: Mahdi.taneLash finished.
+--------
+Cycle #17
+We currently have 1 nodes.
+AI: Ahmadalli.getBorderNodes finished.
+AI: Mahdi.getWeakBorderNodes finished.
+AI: Amirhossein.crave finished.
+AI: Amirhossein.findDis finished.
+AI: FindNearestEnemyDistance for borderNodes (count = 1) finished.
+method: Mahdi.MarzbananBePish (Escape) - from:14 - to: 13 - army: 47
+AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.
+AI: Mahdi.taneLash finished.
+
+Process finished with exit code 0

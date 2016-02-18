@@ -1,0 +1,2 @@
+red = Rozelium 3.1.0
+result = Rozelium won
