@@ -404,6 +404,8 @@ public class Mahdi {
                 NodeBFSOutput route = Mahdi.GetRouteToNodeGroup(world, node, clusters.get(mainClusterId));
 
                 if (route != null) {
+                    Ahmadalli.log("method: Mahdi.MarzbananBePish (Go back to your mother) - from :" + node.getIndex() +
+                            " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
                     Mahdi.Movement(node, route.nextInPath, node.getArmyCount());
                     return;
                 }
@@ -421,6 +423,8 @@ public class Mahdi {
                         Mahdi.Escape(node);
                     }
                 } else { //There's no enemy in distance == 1 of this node, so this node is safe.
+                    Ahmadalli.log("method: Mahdi.MarzbananBePish (Safe zone) - from :" + node.getIndex() +
+                            " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
                     Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
                 }
 
