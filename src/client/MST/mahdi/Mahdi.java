@@ -523,6 +523,8 @@ public class Mahdi {
             if (Ahmadalli.getFriendlyNeighbors(i, false).size() == 0) {
                 for (Node j : i.getNeighbours()) {
                     if (j.getOwner() == world.getMyID()) {
+                        if ((Ahmadalli.isBorderNode(j)) && (Ahmadalli.getEnemyNeighbors(j, false).size() >= 2))
+                            continue;
                         if (Mahdi.IsMovingSrc(j))
                             Mahdi.CancelMovementSrc(j);
                         Mahdi.Movement(j,i,(int)(j.getArmyCount() * constants.HaramC - constants.HaramV));
