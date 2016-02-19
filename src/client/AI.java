@@ -6,6 +6,7 @@ import client.MST.mahdi.Mahdi;
 import client.model.Node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -37,8 +38,8 @@ public class AI {
         ArrayList<Node> worthwhileBorderNodes = Mahdi.getWorthwhileBorderNodes(world, borderNodes);
         Ahmadalli.log("AI: Mahdi.getWorthwhileBorderNodes finished.");
 
-        ArrayList<Node> untouchedNodes = Amirhosein.crave(world, worthwhileBorderNodes);
-        Ahmadalli.log("AI: Amirhossein.crave finished.");
+        ArrayList<Node> untouchedNodes = new ArrayList<>(Arrays.asList(world.getMyNodes())); //Amirhosein.crave(world, worthwhileBorderNodes);
+        //Ahmadalli.log("AI: Amirhossein.crave finished.");
 
         Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
         Ahmadalli.log("AI: Amirhossein.findDis finished.");
@@ -68,6 +69,7 @@ public class AI {
         }*/
 
         Mahdi.ApplyMovements(world);
+        Ahmadalli.log(world.getTurnTimePassed() + "ms" , 0 );
     }
 
     private void layer1Move(World world) {

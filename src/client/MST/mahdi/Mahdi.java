@@ -169,16 +169,18 @@ public class Mahdi {
             return;
 
         double factor = constants.factorOfSendingToNewNodeWhenCurrentMightBeInDanger;
+        boolean isCompletelySafe = false;
         if (getOnlyEnemyNeighbors(source).size() == 0)
-            factor = constants.factorOfSendingToNewNodeWhenCurrentIsSafe2;
+            isCompletelySafe = true;
 
         //Ahmadalli.log("d " + factor + " " + getOnlyEnemyNeighbors(source).size());
 
         for (Node ownerless : ownerlessNeighbors) {
             if (!IsMovingDest(ownerless)) {
+                int armyCount = isCompletelySafe ? 1 : (int) (source.getArmyCount() * factor);
                 Ahmadalli.log("method: Mahdi.GoGrabOwnerlessNodes - from:" + source.getIndex() +
-                        " - to: " + ownerless.getIndex() + " - army: " + (int) (source.getArmyCount() * factor));
-                Movement(source, ownerless, (int) (source.getArmyCount() * factor));
+                        " - to: " + ownerless.getIndex() + " - army: " + armyCount + " - isCompletelySafe: " + (isCompletelySafe ? "true" : "false"));
+                Movement(source, ownerless, armyCount);
             }
         }
     }
@@ -275,7 +277,7 @@ public class Mahdi {
             //If we're already moving somewhere ownerless, this attack will be ignored;
             // since that movement is registered before this.
             Movement(n, weakest, n.getArmyCount());
-            Ahmadalli.log("method: Mahdi.Escape (Poor Alone Node) - from:" + n.getIndex() +
+            Ahmadalli.log("method: Mahdi.HalMenNaserenYansoroni (Escape Poor Alone Node) - from:" + n.getIndex() +
                     " - to: " + weakest.getIndex() + " - army: " + n.getArmyCount());
             return;
         }
@@ -296,7 +298,7 @@ public class Mahdi {
         if (Mahdi.IsMovingDest(n))
             Mahdi.CancelMovementDest(n);
 
-        Ahmadalli.log("method: Mahdi.Escape (Escape) - from:" + n.getIndex() +
+        Ahmadalli.log("method: Mahdi.HalMenNaserenYansoroni (Escape) - from:" + n.getIndex() +
                 " - to: " + smallestNeighbor.getIndex() + " - army: " + n.getArmyCount());
         Movement(n, smallestNeighbor, n.getArmyCount());
     }
@@ -412,7 +414,7 @@ public class Mahdi {
                                 " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1 * criticalFactor));
                         Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1 * criticalFactor));
                     } else {
-                        Mahdi.Escape(node);
+                        Mahdi.HalMenNaserenYansoroni(node, route.target);
                     }
                 } else { //There's no enemy in distance == 1 of this node, so this node is safe.
                     Ahmadalli.log("method: Mahdi.MarzbananBePish (Safe zone) - from :" + node.getIndex() +
@@ -429,6 +431,69 @@ public class Mahdi {
             Ahmadalli.log("EXCEPTION IN MarzbananBePish.");
             PreviousMarzbananAlgorithm(world, node);
         }
+    }
+
+    private static boolean LetsAttackTogether(Node node, Node enemy) {
+        boolean flag = false;
+
+        int totalVal = node.getArmyCount();
+        for (Node i : Ahmadalli.getFriendlyNeighbors(node, false)) {
+            if ((Arrays.asList(i.getNeighbours()).contains(enemy)) &&
+                    (Ahmadalli.getEnemyNeighbors(i, false).size() == 1)) {
+                totalVal += i.getArmyCount();
+            }
+        }
+
+        if (Ahmadalli.getScoreState(totalVal) >= enemy.getArmyCount()) {
+            for (Node i : Ahmadalli.getFriendlyNeighbors(node, false)) {
+                if ((Arrays.asList(i.getNeighbours()).contains(enemy)) &&
+                        (Ahmadalli.getEnemyNeighbors(i, false).size() == 1)) {
+                    if (Mahdi.IsMovingSrc(i))
+                        Mahdi.CancelMovementSrc(i);
+                    Mahdi.Movement(i, enemy, i.getArmyCount());
+                    Ahmadalli.log("method: Mahdi.HalMenNaserenYansoroni (Let's attack together) - from:" + i.getIndex() +
+                            " - to: " + enemy.getIndex() + " - army: " + i.getArmyCount());
+                    flag = true;
+                }
+            }
+        }
+
+        return flag;
+    }
+
+    private static boolean HelpMeMyFriends(Node node, Node enemy) {
+        boolean flag = false;
+        int totalVal = node.getArmyCount();
+        for (Node i : Ahmadalli.getFriendlyNeighbors(node, false)) {
+            if (Ahmadalli.getEnemyNeighbors(i, false).size() == 0) {
+                totalVal += i.getArmyCount();
+            }
+        }
+
+        if (Ahmadalli.getScoreState(totalVal) >= enemy.getArmyCount()) {
+            for (Node i : Ahmadalli.getFriendlyNeighbors(node, false)) {
+                if (Ahmadalli.getEnemyNeighbors(i, false).size() == 0) {
+                    if (Mahdi.IsMovingSrc(i))
+                        Mahdi.CancelMovementSrc(i);
+                    Mahdi.Movement(i, node, i.getArmyCount());
+                    Ahmadalli.log("method: Mahdi.HalMenNaserenYansoroni (HelpMeMyFriends) - from:" + i.getIndex() +
+                            " - to: " + node.getIndex() + " - army: " + i.getArmyCount());
+                    flag = true;
+                }
+            }
+        }
+
+        return flag;
+    }
+
+    private static void HalMenNaserenYansoroni(Node node, Node enemy) {
+        if (LetsAttackTogether(node, enemy))
+            return;
+
+        if (HelpMeMyFriends(node, enemy))
+            return;
+
+        Mahdi.Escape(node);
     }
 
     private static double GetCriticalFactor(World world, Node node) {
