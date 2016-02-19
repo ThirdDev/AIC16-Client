@@ -78,8 +78,16 @@ public class AI {
             layer1Move(world);
         }*/
 
+        ArrayList<Node> crit = new ArrayList<>(criticalBorder);
+        Ahmadalli.log("Ultimate try");
+        Ahmadalli.getCriticalNotFriendlyNodesSorted(world, borderNodes, crit);
+        for (Node n : crit) {
+            Amirhosein.crave(world, n, 15, borderNodes, criticalBorder);
+        }
+
+
         Mahdi.ApplyMovements(world);
-        Ahmadalli.log(world.getTurnTimePassed() + "ms" , 0 );
+        Ahmadalli.log(world.getTurnTimePassed() + "ms", 0);
     }
 
     private void layer1Move(World world) {
