@@ -69,6 +69,7 @@ public class AI {
         }*/
 
         Mahdi.ApplyMovements(world);
+        Ahmadalli.log(world.getTurnTimePassed() + "ms" , 0 );
     }
 
     private void layer1Move(World world) {
