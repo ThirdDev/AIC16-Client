@@ -175,6 +175,8 @@ public class Ahmadalli {
             Mahdi.NodeBFSOutput o2BFSOutput = Mahdi.GetRouteToNodeGroup(world, o2, arrayToArrayList(world.getMap().getNodes()), borders, true);
             return o1BFSOutput.totalDistance - o2BFSOutput.totalDistance;
         });
+
+        Collections.reverse(criticalNodes);
     }
 
     public static <E> ArrayList<E> arrayToArrayList(E[] array) {

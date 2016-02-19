@@ -78,11 +78,16 @@ public class AI {
             layer1Move(world);
         }*/
 
+        int armyCount = 0;
+        for (Node n : world.getMyNodes())
+            armyCount += n.getArmyCount();
+
         ArrayList<Node> crit = new ArrayList<>(criticalBorder);
         Ahmadalli.log("Ultimate try");
         Ahmadalli.getCriticalNotFriendlyNodesSorted(world, borderNodes, crit);
         for (Node n : crit) {
-            Amirhosein.crave(world, n, 15, borderNodes, criticalBorder);
+            Ahmadalli.log("crave for " + n.getIndex() + " ... " + (int)(armyCount / (2 * criticalBorder.size())));
+            Amirhosein.crave(world, n, (int)(armyCount / (2 * criticalBorder.size())), borderNodes, criticalBorder);
         }
 
 
