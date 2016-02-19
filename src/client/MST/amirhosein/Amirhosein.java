@@ -62,11 +62,14 @@ public class Amirhosein
                         }
                         mark[uNeighbours[i].getIndex()] = 1;
                         par[uNeighbours[i].getIndex()] = u;
-                        craveMeter-=uNeighbours[i].getArmyCount();
-                        if (Mahdi.IsMovingSrc(uNeighbours[i]))
-                            Mahdi.CancelMovementSrc(uNeighbours[i]);
-                        Mahdi.Movement(uNeighbours[i],u,uNeighbours[i].getArmyCount());
-                        Ahmadalli.log("crave movement from " + uNeighbours[i].getIndex() + " to " + u.getIndex() + " count " + uNeighbours[i].getArmyCount());
+                        if(uNeighbours[i].getOwner() != world.getMyID())
+                        {
+                            craveMeter -= uNeighbours[i].getArmyCount();
+                            if (Mahdi.IsMovingSrc(uNeighbours[i]))
+                                Mahdi.CancelMovementSrc(uNeighbours[i]);
+                            Mahdi.Movement(uNeighbours[i], u, uNeighbours[i].getArmyCount());
+                            Ahmadalli.log("crave movement from " + uNeighbours[i].getIndex() + " to " + u.getIndex() + " count " + uNeighbours[i].getArmyCount());
+                        }
                         q.add(uNeighbours[i]);
                     }
                 }
