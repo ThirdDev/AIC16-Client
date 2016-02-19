@@ -52,7 +52,7 @@ public class Amirhosein
             if(!isIt(u,criticalNodes) || !isIt(u,borderNodes) )
             {
                 Node[] uNeighbours = u.getNeighbours();
-                for (int i = 0; i < uNeighbours.length; i++)
+                for (int i = 0; i < uNeighbours.length && craveMeter > 0; i++ )
                 {
                     if (mark[uNeighbours[i].getIndex()] == 0)
                     {
