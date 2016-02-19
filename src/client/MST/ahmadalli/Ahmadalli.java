@@ -47,14 +47,23 @@ public class Ahmadalli {
     }
 
     public static int getNodeState(Node node) {
-        return getScoreState(node.getArmyCount());
+        return getScoreState(node.getArmyCount(), false);
+    }
+
+    public static int getNodeState(Node node, boolean underestimate) {
+        return getScoreState(node.getArmyCount(), underestimate);
     }
 
     public static int getScoreState(int score) {
-        int armyCount = (int) (score * constants.UnderEstimateCoefficient - constants.UnderEstimateValue);
-        if (armyCount <= constants.c3)
+        return getScoreState(score, false);
+    }
+
+    public static int getScoreState(int score, boolean underestimate) {
+        if (underestimate)
+            score = (int) (score * constants.UnderEstimateCoefficient - constants.UnderEstimateValue);
+        if (score <= constants.c3)
             return 0;
-        if (armyCount <= constants.c4)
+        if (score <= constants.c4)
             return 1;
         return 2;
     }
