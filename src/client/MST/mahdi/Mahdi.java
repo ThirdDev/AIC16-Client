@@ -95,7 +95,9 @@ public class Mahdi {
                         bestNode = b;
                     }
                 }
-
+                Node sss = MovingSrcWhatIsDest(bestPath.get(0));
+                if ((sss != null) && (sss.getOwner() == world.getMyID()) && (Ahmadalli.isBorderNode(bestPath.get(0))))
+                    continue;
                 Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
                         " - to: " + bestPath.get(0).getIndex() + " - army: " + node.getArmyCount());
                 Mahdi.Movement(node, bestPath.get(0), node.getArmyCount());
@@ -188,6 +190,21 @@ public class Mahdi {
     public static void InitMovements() {
         attacks = new ArrayList<>();
     }
+
+    public static Node MovingSrcWhatIsDest(Node n) {
+        for (AttackData d : attacks)
+            if (d.source == n)
+                return d.dest;
+        return null;
+    }
+
+    public static Node MovingDestWhatIsSrc(Node n) {
+        for (AttackData d : attacks)
+            if (d.dest == n)
+                return d.source;
+        return null;
+    }
+
 
     public static boolean IsMovingSrc(Node n) {
         for (AttackData d : attacks)
