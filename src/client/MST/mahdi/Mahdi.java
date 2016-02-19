@@ -47,9 +47,9 @@ public class Mahdi {
     }
 
     public static class NodeBFSOutput {
-        Node target;
-        Node nextInPath;
-        int totalDistance;
+        public Node target;
+        public Node nextInPath;
+        public int totalDistance;
 
         NodeBFSOutput(Node _target, Node _nextInPath, int _totalDistance) {
             target = _target;
