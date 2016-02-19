@@ -156,6 +156,27 @@ public class Ahmadalli {
             System.out.println(text);
     }
 
+    //ham border va ham critical
+
+    public static void getCriticalNotFriendlyNodesSorted(World world, ArrayList<Node> borders, ArrayList<Node> criticalNodes) {
+
+        //removing our criticalNodes
+        ArrayList<Node> ourNodes = arrayToArrayList(world.getMyNodes());
+        for (int i = 0; i < criticalNodes.size(); i++) {
+            Node criticalNode = criticalNodes.get(i);
+            if (ourNodes.contains(criticalNode)) {
+                criticalNodes.remove(criticalNode);
+                i--;
+            }
+        }
+
+        criticalNodes.sort((o1, o2) -> {
+            Mahdi.NodeBFSOutput o1BFSOutput = Mahdi.GetRouteToNodeGroup(world, o1, arrayToArrayList(world.getMap().getNodes()), borders, true);
+            Mahdi.NodeBFSOutput o2BFSOutput = Mahdi.GetRouteToNodeGroup(world, o2, arrayToArrayList(world.getMap().getNodes()), borders, true);
+            return o1BFSOutput.totalDistance - o2BFSOutput.totalDistance;
+        });
+    }
+
     public static <E> ArrayList<E> arrayToArrayList(E[] array) {
         return new ArrayList<>(Arrays.asList(array));
     }
