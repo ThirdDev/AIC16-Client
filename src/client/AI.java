@@ -34,10 +34,10 @@ public class AI {
         ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
         Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
 
-        ArrayList<Node> weakBorderNodes = Mahdi.getWeakBorderNodes(borderNodes);
-        Ahmadalli.log("AI: Mahdi.getWeakBorderNodes finished.");
+        ArrayList<Node> worthwhileBorderNodes = Mahdi.getWorthwhileBorderNodes(world, borderNodes);
+        Ahmadalli.log("AI: Mahdi.getWorthwhileBorderNodes finished.");
 
-        ArrayList<Node> untouchedNodes = Amirhosein.crave(world, weakBorderNodes);
+        ArrayList<Node> untouchedNodes = Amirhosein.crave(world, worthwhileBorderNodes);
         Ahmadalli.log("AI: Amirhossein.crave finished.");
 
         Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);

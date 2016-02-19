@@ -46,33 +46,18 @@ public class Mahdi {
 
     static ArrayList<AttackData> attacks;
 
-    static int minimumRecommendedForceInBorders = 10;
-
-    public static int getMinimumRecommendedForceInBorders() {
-        return minimumRecommendedForceInBorders;
-    }
-
-    public static void increaseMinimumRecommendedForceInBorders() {
-        minimumRecommendedForceInBorders++;
-    }
-
-    public static ArrayList<Node> getWeakBorderNodes(ArrayList<Node> borderNodes) {
-        if (getMinimumRecommendedForceInBorders() > constants.minimumRecommendedForceInBordersFailSafe) {
-            return new ArrayList<>();
-        }
-
+    public static ArrayList<Node> getWorthwhileBorderNodes(World world, ArrayList<Node> borderNodes) {
         ArrayList<Node> output = new ArrayList<>();
 
-        int minRecom = getMinimumRecommendedForceInBorders();
-
-        for (Node node : borderNodes) {
-            if (node.getArmyCount() < minRecom)
-                output.add(node);
-        }
-
-        if (output.size() == 0) {
-            increaseMinimumRecommendedForceInBorders();
-            return getWeakBorderNodes(borderNodes);
+        for(Node i : borderNodes) {
+            ArrayList<Node> space = new ArrayList<>();
+            space.addAll(Arrays.asList(world.getFreeNodes()));
+            space.addAll(Arrays.asList(world.getOpponentNodes()));
+            space.add(i);
+            NodeBFSOutput route = Mahdi.GetRouteToNodeGroup(world, i, space, new ArrayList<>(Arrays.asList(world.getOpponentNodes())), true);
+            if (route != null) {
+                output.add(i);
+            }
         }
 
         return output;
