@@ -182,18 +182,13 @@ public class Mahdi {
         if (count == 0)
             return;
 
-        double factor = constants.factorOfSendingToNewNodeWhenCurrentMightBeInDanger;
-        boolean isCompletelySafe = false;
-        if (getOnlyEnemyNeighbors(source).size() == 0)
-            isCompletelySafe = true;
-
         //Ahmadalli.log("d " + factor + " " + getOnlyEnemyNeighbors(source).size());
 
         for (Node ownerless : ownerlessNeighbors) {
             if (!IsMovingDest(ownerless)) {
-                int armyCount = isCompletelySafe ? 1 : (int) (source.getArmyCount() * factor);
+                int armyCount = 1;
                 Ahmadalli.log("method: Mahdi.GoGrabOwnerlessNodes - from:" + source.getIndex() +
-                        " - to: " + ownerless.getIndex() + " - army: " + armyCount + " - isCompletelySafe: " + (isCompletelySafe ? "true" : "false"));
+                        " - to: " + ownerless.getIndex() + " - army: " + armyCount);
                 Movement(source, ownerless, armyCount);
             }
         }
@@ -343,7 +338,7 @@ public class Mahdi {
                 }
             });
             for (Node neighbor : neighbors) {
-                if (neighbor.getOwner() != world.getMyID()) {
+                if (nodes.contains(neighbor)) {
                     if (data.get(neighbor).distance == Integer.MAX_VALUE) {
                         data.get(neighbor).distance = data.get(current).distance + 1;
                         data.get(neighbor).parent = current;
@@ -427,9 +422,7 @@ public class Mahdi {
                     for (Node en : enemies) {
                         enemyValue += constants.OwnerAvgValues1[en.getArmyCount()];
                     }
-
-                    if ((enemies.size() == 1) &&
-                            ((enemyValue <= node.getArmyCount()) || (SomeoneElseIsAttacking(route.target)))) {
+                    if (((enemyValue <= node.getArmyCount()) || (SomeoneElseIsAttacking(route.target)))) {
                         Ahmadalli.log("method: Mahdi.MarzbananBePish (Attack) - from:" + node.getIndex() +
                                 " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1 * criticalFactor));
                         Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1 * criticalFactor));
@@ -502,6 +495,11 @@ public class Mahdi {
                 }
             }
         }
+
+        if (Ahmadalli.getOwnerlessNeighbors(node).size() > 0) {
+            GoGrabOwnerlessNodes(node);
+        }
+
 
         return flag;
     }
