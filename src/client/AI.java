@@ -21,11 +21,21 @@ import java.util.Map;
  */
 public class AI {
 
+    ArrayList<Node> ourNodes = new ArrayList<>();
+    ArrayList<Node> opponentNodes = new ArrayList<>();
+    ArrayList<Node> criticalBorder = new ArrayList<>();
+
     public void doTurn(World world) {
         // fill this method, we've presented a stupid AI for example!
         Ahmadalli.log("--------");
         Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
         Ahmadalli.log("We currently have " + world.getMyNodes().length + " nodes.");
+
+
+        if (world.getTurnNumber() == 0) {
+            Mahdi.CalculateCriticalNodes(world, ourNodes, criticalBorder, opponentNodes);
+        }
+
         //try {
         Mahdi.InitMovements();
 

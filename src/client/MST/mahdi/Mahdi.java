@@ -63,7 +63,7 @@ public class Mahdi {
     public static ArrayList<Node> getWorthwhileBorderNodes(World world, ArrayList<Node> borderNodes) {
         ArrayList<Node> output = new ArrayList<>();
 
-        for(Node i : borderNodes) {
+        for (Node i : borderNodes) {
             ArrayList<Node> space = new ArrayList<>();
             space.addAll(Arrays.asList(world.getFreeNodes()));
             space.addAll(Arrays.asList(world.getOpponentNodes()));
@@ -424,7 +424,7 @@ public class Mahdi {
                 if (route.totalDistance <= 1) { //Enemy is node's neighbor
                     int enemyValue = 0;
                     ArrayList<Node> enemies = Ahmadalli.getEnemyNeighbors(node, false);
-                    for (Node en: enemies) {
+                    for (Node en : enemies) {
                         enemyValue += constants.OwnerAvgValues1[en.getArmyCount()];
                     }
 
@@ -620,9 +620,7 @@ public class Mahdi {
         }
     }
 
-
-
-    private void CalculateCriticalNodes(World world, ArrayList<Node> ourNodes, ArrayList<Node> criticalBorder, ArrayList<Node> opponentNodes) {
+    public static void CalculateCriticalNodes(World world, ArrayList<Node> ourNodes, ArrayList<Node> criticalBorder, ArrayList<Node> opponentNodes) {
         ExtendedNodeBFSData[] data = new ExtendedNodeBFSData[world.getMap().getNodes().length];
 
         for (int i = 0; i < world.getMap().getNodes().length; i++) {
@@ -630,32 +628,54 @@ public class Mahdi {
             data[i] = new ExtendedNodeBFSData(n, null, (n.getOwner() == -1 ? Integer.MAX_VALUE : 0), n.getOwner());
         }
 
-        ourNodes = new ArrayList<>();
-        criticalBorder = new ArrayList<>();
-        opponentNodes = new ArrayList<>();
-
         Queue<Node> Q = new LinkedList<>();
-        for (Node n: world.getMyNodes())
+        for (Node n : world.getMyNodes())
             Q.add(n);
-        for (Node n: world.getOpponentNodes())
+        for (Node n : world.getOpponentNodes())
             Q.add(n);
 
         while (Q.size() != 0) {
             Node cur = Q.poll();
 
-            for (Node neighbor: cur.getNeighbours()) {
-                if (data[neighbor.getIndex()].mark == -1) {
-                    if (data[neighbor.getIndex()].distance == Integer.MAX_VALUE) {
-                        data[neighbor.getIndex()].distance = data[cur.getIndex()].distance + 1;
-                        data[neighbor.getIndex()].parent = cur;
-                        data[neighbor.getIndex()].mark = data[cur.getIndex()].mark;
+            boolean flag = false;
+            ArrayList<Node> recentlyAddedNodes = new ArrayList<>();
+            for (Node neighbor : cur.getNeighbours()) {
+                if (data[neighbor.getIndex()].mark != -1)
+                    if ((data[neighbor.getIndex()].mark == Ahmadalli.getEnemyId(world)) && (data[cur.getIndex()].mark == world.getMyID())) {
+                        if (!criticalBorder.contains(cur)) {
+                            criticalBorder.add(cur);
+                            recentlyAddedNodes.add(cur);
+                            //Ahmadalli.log("cur: " + cur.getIndex() + " , neigh: " + neighbor.getIndex() + " : cur added.");
+                        }
+
+                        flag = true;
+                    } else if ((data[neighbor.getIndex()].mark == world.getMyID()) && (data[cur.getIndex()].mark  == Ahmadalli.getEnemyId(world))) {
+                        if (!criticalBorder.contains(neighbor)) {
+                            criticalBorder.add(neighbor);
+                            recentlyAddedNodes.add(neighbor);
+                            //Ahmadalli.log("cur: " + cur.getIndex() + " , neigh: " + neighbor.getIndex() + " : neighbor added.");
+                        }
+
+                        flag = true;
                     }
-                }
-                else if ((data[neighbor.getIndex()].mark != world.getMyID()) && (data[cur.getIndex()].mark == world.getMyID())) {
-                    criticalBorder.add(cur);
-                }
-                else if ((data[neighbor.getIndex()].mark == world.getMyID()) && (data[cur.getIndex()].mark != world.getMyID())) {
-                    criticalBorder.add(neighbor);
+            }
+
+            if (flag == true) {
+                data[cur.getIndex()].mark = -2;
+                for (Node i : recentlyAddedNodes)
+                    data[i.getIndex()].mark = -2;
+            }
+            if (flag == false) {
+                for (Node neighbor : cur.getNeighbours()) {
+                    if (data[neighbor.getIndex()].mark == -1) {
+                        if (data[neighbor.getIndex()].distance == Integer.MAX_VALUE) {
+                            data[neighbor.getIndex()].distance = data[cur.getIndex()].distance + 1;
+                            data[neighbor.getIndex()].parent = cur;
+                            data[neighbor.getIndex()].mark = data[cur.getIndex()].mark;
+
+                            Q.add(neighbor);
+                        }
+                    }
                 }
             }
         }
@@ -671,7 +691,6 @@ public class Mahdi {
                 opponentNodes.add(n);
         }
     }
-
 
 
 }
