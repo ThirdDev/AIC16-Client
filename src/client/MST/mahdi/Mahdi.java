@@ -15,15 +15,15 @@ import java.util.*;
 public class Mahdi {
 
     private static class AttackData {
-        Node source;
-        Node dest;
-        int count;
+        public Node source;
+        public Node dest;
+        public int count;
     }
 
     public static class NodeBFSData {
-        Node node;
-        Node parent;
-        int distance;
+        public Node node;
+        public Node parent;
+        public int distance;
 
         NodeBFSData(Node _node, Node _parent, int _distance) {
             node = _node;
@@ -33,10 +33,10 @@ public class Mahdi {
     }
 
     public static class ExtendedNodeBFSData {
-        Node node;
-        Node parent;
-        int distance;
-        int mark;
+        public Node node;
+        public Node parent;
+        public int distance;
+        public int mark;
 
         ExtendedNodeBFSData(Node _node, Node _parent, int _distance, int _mark) {
             node = _node;
