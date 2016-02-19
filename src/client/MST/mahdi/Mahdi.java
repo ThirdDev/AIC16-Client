@@ -322,7 +322,7 @@ public class Mahdi {
 
         data.put(source, new NodeBFSData(source, null, 0));
 
-        Queue<Node> Q =  new LinkedList<>();
+        Queue<Node> Q = new LinkedList<>();
 
         Q.add(source);
 
@@ -381,7 +381,7 @@ public class Mahdi {
         for (Node i : Ahmadalli.getBorderNodes(world))
             nodes.add(i);
 
-        return GetRouteToNodeGroup(world, source, nodes, new ArrayList<Node> (Arrays.asList(world.getOpponentNodes())), false);
+        return GetRouteToNodeGroup(world, source, nodes, new ArrayList<Node>(Arrays.asList(world.getOpponentNodes())), false);
     }
 
     public static boolean SomeoneElseIsAttacking(Node n) {
@@ -402,7 +402,7 @@ public class Mahdi {
         try {
             if ((GetClusterId(node, clusters) != mainClusterId) && (Ahmadalli.getEnemyNeighbors(node, false).size() > 0)) {
                 NodeBFSOutput route = Mahdi.GetRouteToNodeGroup(world, node,
-                        new ArrayList<Node> (Arrays.asList( world.getMap().getNodes())),
+                        new ArrayList<Node>(Arrays.asList(world.getMap().getNodes())),
                         clusters.get(mainClusterId), true);
 
                 if (route != null) {
@@ -445,8 +445,8 @@ public class Mahdi {
 
     private static double GetCriticalFactor(World world, Node node) {
         if ((node.getNeighbours().length >= constants.CriticalBorderEdgeCount)
-            && (Mahdi.GetRouteToNearestEnemy(world, node).totalDistance <= constants.CriticalBorderMaxDistanceFromEnemy)
-            && (Ahmadalli.getEnemyNeighbors(node, true).size() > 1))
+                && (Mahdi.GetRouteToNearestEnemy(world, node).totalDistance <= constants.CriticalBorderMaxDistanceFromEnemy)
+                && (Ahmadalli.getEnemyNeighbors(node, true).size() > 1))
             return constants.CriticalBorderFactor;
         return 1;
     }
@@ -534,9 +534,9 @@ public class Mahdi {
                             continue;
                         if (Mahdi.IsMovingSrc(j))
                             Mahdi.CancelMovementSrc(j);
-                        Mahdi.Movement(j,i,(int)(j.getArmyCount() * constants.HaramC - constants.HaramV));
+                        Mahdi.Movement(j, i, (int) (j.getArmyCount() * constants.HaramC - constants.HaramV));
                         Ahmadalli.log("method: Mahdi.ModafeaneHaram - from: " + j.getIndex() +
-                                " - to: " + i.getIndex() + " - army: " + (int)(j.getArmyCount() * constants.HaramC - constants.HaramV));
+                                " - to: " + i.getIndex() + " - army: " + (int) (j.getArmyCount() * constants.HaramC - constants.HaramV));
                     }
                 }
             }
