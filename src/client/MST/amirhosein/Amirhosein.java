@@ -56,7 +56,6 @@ public class Amirhosein
                 {
                     if (mark[uNeighbours[i].getIndex()] == 0)
                     {
-                        if(uNeighbours)
                         if (isIt(u,borderNodes) && isIt(uNeighbours[i] , borderNodes))
                         {
                             continue;
