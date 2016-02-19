@@ -18,13 +18,14 @@ public class Amirhosein
 
     public static boolean isIt (Node node , ArrayList<Node> nodeList)
     {
-        for (int i = 0; i < nodeList.size(); i++)
-        {
-            if(node.getIndex() == nodeList.get(i).getIndex())
+        if(node != null)
+            for (int i = 0; i < nodeList.size(); i++)
             {
-                return true;
+                if(node.getIndex() == nodeList.get(i).getIndex())
+                {
+                    return true;
+                }
             }
-        }
         return false;
     }
     public static ArrayList<Node> crave(World world, Node src, int craveMeter, ArrayList <Node> borderNodes, ArrayList<Node> criticalNodes)
@@ -46,6 +47,8 @@ public class Amirhosein
         while(q.size()>0 || craveMeter>0)
         {
             Node u = q.poll();
+            if(u == null)
+                break;
             if(!isIt(u,criticalNodes) || !isIt(u,borderNodes) )
             {
                 Node[] uNeighbours = u.getNeighbours();
@@ -59,8 +62,9 @@ public class Amirhosein
                         }
                         mark[uNeighbours[i].getIndex()] = 1;
                         par[uNeighbours[i].getIndex()] = u;
+                        craveMeter-=uNeighbours[i].getArmyCount();
+                        world.moveArmy(uNeighbours[i],u,uNeighbours[i].getArmyCount());
                         q.add(uNeighbours[i]);
-
                     }
                 }
             }
