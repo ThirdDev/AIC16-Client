@@ -6,6 +6,7 @@ import client.World;
 import client.model.Node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -153,6 +154,10 @@ public class Ahmadalli {
     public static void log(String text, int level) {
         if (level <= 2)
             System.out.println(text);
+    }
+
+    public static <E> ArrayList<E> arrayToArrayList(E[] array) {
+        return new ArrayList<>(Arrays.asList(array));
     }
 
     public static int getEnemyId(World world) {
