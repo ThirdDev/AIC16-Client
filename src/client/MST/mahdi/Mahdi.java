@@ -444,11 +444,15 @@ public class Mahdi {
     }
 
     private static double GetCriticalFactor(World world, Node node) {
-        if ((node.getNeighbours().length >= constants.CriticalBorderEdgeCount)
-                && (Mahdi.GetRouteToNearestEnemy(world, node).totalDistance <= constants.CriticalBorderMaxDistanceFromEnemy)
-                && (Ahmadalli.getEnemyNeighbors(node, true).size() > 1))
+        if (IsCriticalNode(world, node))
             return constants.CriticalBorderFactor;
         return 1;
+    }
+
+    private static boolean IsCriticalNode(World world, Node node) {
+        return (node.getNeighbours().length >= constants.CriticalBorderEdgeCount)
+                && (Mahdi.GetRouteToNearestEnemy(world, node).totalDistance <= constants.CriticalBorderMaxDistanceFromEnemy)
+                && (Ahmadalli.getEnemyNeighbors(node, true).size() > 1);
     }
 
     private static int FindMainClusterId(ArrayList<ArrayList<Node>> clusters) {
