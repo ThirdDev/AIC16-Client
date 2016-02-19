@@ -233,6 +233,8 @@ public class Mahdi {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).source == n) {
                 attacks.remove(attacks.get(i));
+                Ahmadalli.log("** CancelMovementSrc: from " + attacks.get(i).source.getIndex()
+                                + " to " + attacks.get(i).dest.getIndex() + ", count = " + attacks.get(i).count, 2);
             }
     }
 
@@ -240,6 +242,8 @@ public class Mahdi {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).dest == n) {
                 attacks.remove(attacks.get(i));
+                Ahmadalli.log("** CancelMovementSrc: from " + attacks.get(i).source.getIndex()
+                        + " to " + attacks.get(i).dest.getIndex() + ", count = " + attacks.get(i).count, 2);
             }
     }
 
@@ -311,7 +315,6 @@ public class Mahdi {
                 " - to: " + smallestNeighbor.getIndex() + " - army: " + n.getArmyCount());
         Movement(n, smallestNeighbor, n.getArmyCount());
     }
-
 
     public static NodeBFSOutput GetRouteToNodeGroup(World world, Node source, ArrayList<Node> nodes, ArrayList<Node> destinations, boolean allowMultipleMovementsToDest) {
         Map<Node, NodeBFSData> data = new HashMap<>();
