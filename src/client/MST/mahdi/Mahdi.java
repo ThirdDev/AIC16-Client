@@ -169,16 +169,18 @@ public class Mahdi {
             return;
 
         double factor = constants.factorOfSendingToNewNodeWhenCurrentMightBeInDanger;
+        boolean isCompletelySafe = false;
         if (getOnlyEnemyNeighbors(source).size() == 0)
-            factor = constants.factorOfSendingToNewNodeWhenCurrentIsSafe2;
+            isCompletelySafe = true;
 
         //Ahmadalli.log("d " + factor + " " + getOnlyEnemyNeighbors(source).size());
 
         for (Node ownerless : ownerlessNeighbors) {
             if (!IsMovingDest(ownerless)) {
+                int armyCount = isCompletelySafe ? 1 : (int) (source.getArmyCount() * factor);
                 Ahmadalli.log("method: Mahdi.GoGrabOwnerlessNodes - from:" + source.getIndex() +
-                        " - to: " + ownerless.getIndex() + " - army: " + (int) (source.getArmyCount() * factor));
-                Movement(source, ownerless, (int) (source.getArmyCount() * factor));
+                        " - to: " + ownerless.getIndex() + " - army: " + armyCount + " - isCompletelySafe: " + (isCompletelySafe ? "true" : "false"));
+                Movement(source, ownerless, armyCount);
             }
         }
     }
