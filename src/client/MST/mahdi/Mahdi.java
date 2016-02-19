@@ -32,6 +32,20 @@ public class Mahdi {
         }
     }
 
+    public static class ExtendedNodeBFSData {
+        Node node;
+        Node parent;
+        int distance;
+        int mark;
+
+        ExtendedNodeBFSData(Node _node, Node _parent, int _distance, int _mark) {
+            node = _node;
+            parent = _parent;
+            distance = _distance;
+            mark = _mark;
+        }
+    }
+
     public static class NodeBFSOutput {
         Node target;
         Node nextInPath;
@@ -407,9 +421,15 @@ public class Mahdi {
             if (route != null) {
                 double criticalFactor = GetCriticalFactor(world, node);
 
-                if (route.totalDistance <= constants.EnemySoCloseDistance) {
-                    if ((route.target.getArmyCount() <= Ahmadalli.getNodeState(node))
-                            || (SomeoneElseIsAttacking(route.target))) {
+                if (route.totalDistance <= 1) { //Enemy is node's neighbor
+                    int enemyValue = 0;
+                    ArrayList<Node> enemies = Ahmadalli.getEnemyNeighbors(node, false);
+                    for (Node en: enemies) {
+                        enemyValue += constants.OwnerAvgValues1[en.getArmyCount()];
+                    }
+
+                    if ((enemies.size() == 1) &&
+                            ((enemyValue <= node.getArmyCount()) || (SomeoneElseIsAttacking(route.target)))) {
                         Ahmadalli.log("method: Mahdi.MarzbananBePish (Attack) - from:" + node.getIndex() +
                                 " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * constants.c1 * criticalFactor));
                         Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * constants.c1 * criticalFactor));
@@ -599,6 +619,59 @@ public class Mahdi {
             }
         }
     }
+
+
+
+    private void CalculateCriticalNodes(World world, ArrayList<Node> ourNodes, ArrayList<Node> criticalBorder, ArrayList<Node> opponentNodes) {
+        ExtendedNodeBFSData[] data = new ExtendedNodeBFSData[world.getMap().getNodes().length];
+
+        for (int i = 0; i < world.getMap().getNodes().length; i++) {
+            Node n = world.getMap().getNode(i);
+            data[i] = new ExtendedNodeBFSData(n, null, (n.getOwner() == -1 ? Integer.MAX_VALUE : 0), n.getOwner());
+        }
+
+        ourNodes = new ArrayList<>();
+        criticalBorder = new ArrayList<>();
+        opponentNodes = new ArrayList<>();
+
+        Queue<Node> Q = new LinkedList<>();
+        for (Node n: world.getMyNodes())
+            Q.add(n);
+        for (Node n: world.getOpponentNodes())
+            Q.add(n);
+
+        while (Q.size() != 0) {
+            Node cur = Q.poll();
+
+            for (Node neighbor: cur.getNeighbours()) {
+                if (data[neighbor.getIndex()].mark == -1) {
+                    if (data[neighbor.getIndex()].distance == Integer.MAX_VALUE) {
+                        data[neighbor.getIndex()].distance = data[cur.getIndex()].distance + 1;
+                        data[neighbor.getIndex()].parent = cur;
+                        data[neighbor.getIndex()].mark = data[cur.getIndex()].mark;
+                    }
+                }
+                else if ((data[neighbor.getIndex()].mark != world.getMyID()) && (data[cur.getIndex()].mark == world.getMyID())) {
+                    criticalBorder.add(cur);
+                }
+                else if ((data[neighbor.getIndex()].mark == world.getMyID()) && (data[cur.getIndex()].mark != world.getMyID())) {
+                    criticalBorder.add(neighbor);
+                }
+            }
+        }
+
+        for (int i = 0; i < world.getMap().getNodes().length; i++) {
+            Node n = world.getMap().getNode(i);
+            if (criticalBorder.contains(data[i].node))
+                continue;
+
+            if (data[i].mark == world.getMyID())
+                ourNodes.add(n);
+            else
+                opponentNodes.add(n);
+        }
+    }
+
 
 
 }
