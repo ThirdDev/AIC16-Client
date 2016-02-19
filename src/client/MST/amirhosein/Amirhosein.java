@@ -56,13 +56,14 @@ public class Amirhosein
                 {
                     if (mark[uNeighbours[i].getIndex()] == 0)
                     {
+                        if(uNeighbours)
                         if (isIt(u,borderNodes) && isIt(uNeighbours[i] , borderNodes))
                         {
                             continue;
                         }
                         mark[uNeighbours[i].getIndex()] = 1;
                         par[uNeighbours[i].getIndex()] = u;
-                        if(uNeighbours[i].getOwner() != world.getMyID())
+                        if(uNeighbours[i].getOwner() != world.getMyID() && isIt(uNeighbours[i] , criticalNodes))
                         {
                             craveMeter -= uNeighbours[i].getArmyCount();
                             if (Mahdi.IsMovingSrc(uNeighbours[i]))
