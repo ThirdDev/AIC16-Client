@@ -457,11 +457,7 @@ public class Mahdi {
 
     public static ArrayList<Node> GetPath(World world, Node src, Node dest) {
         Map<Node, NodeBFSData> data = new HashMap<>();
-        for (Node i : world.getFreeNodes())
-            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
-        for (Node i : world.getOpponentNodes())
-            data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
-        for (Node i : world.getMyNodes())
+        for (Node i : world.getMap().getNodes())
             if (i != src)
                 data.put(i, new NodeBFSData(i, null, Integer.MAX_VALUE));
 
