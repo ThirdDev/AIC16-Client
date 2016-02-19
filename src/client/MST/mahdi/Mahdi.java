@@ -109,7 +109,9 @@ public class Mahdi {
                         bestNode = b;
                     }
                 }
-
+                Node sss = MovingSrcWhatIsDest(bestPath.get(0));
+                if ((sss != null) && (sss.getOwner() == world.getMyID()) && (Ahmadalli.isBorderNode(bestPath.get(0))))
+                    continue;
                 Ahmadalli.log("method: Mahdi.taneLash - from:" + node.getIndex() +
                         " - to: " + bestPath.get(0).getIndex() + " - army: " + node.getArmyCount());
                 Mahdi.Movement(node, bestPath.get(0), node.getArmyCount());
@@ -196,6 +198,21 @@ public class Mahdi {
 
     public static void InitMovements() {
         attacks = new ArrayList<>();
+    }
+
+
+    public static Node MovingSrcWhatIsDest(Node n) {
+        for (AttackData d : attacks)
+            if (d.source == n)
+                return d.dest;
+        return null;
+    }
+
+    public static Node MovingDestWhatIsSrc(Node n) {
+        for (AttackData d : attacks)
+            if (d.dest == n)
+                return d.source;
+        return null;
     }
 
     public static boolean IsMovingSrc(Node n) {
@@ -430,9 +447,13 @@ public class Mahdi {
                         Mahdi.HalMenNaserenYansoroni(node, route.target);
                     }
                 } else { //There's no enemy in distance == 1 of this node, so this node is safe.
-                    Ahmadalli.log("method: Mahdi.MarzbananBePish (Safe zone) - from :" + node.getIndex() +
-                            " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * criticalFactor * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
-                    Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * criticalFactor * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
+                    if (route.totalDistance >= 3)
+                        GoGrabOwnerlessNodes(node);
+                    else {
+                        Ahmadalli.log("method: Mahdi.MarzbananBePish (Safe zone) - from :" + node.getIndex() +
+                                " - to: " + route.nextInPath.getIndex() + " - army: " + (int) (node.getArmyCount() * criticalFactor * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
+                        Mahdi.Movement(node, route.nextInPath, (int) (node.getArmyCount() * criticalFactor * constants.factorOfSendingToNewNodeWhenCurrentIsSafe));
+                    }
                 }
 
             } else { //Fall back on previous method.
@@ -507,10 +528,10 @@ public class Mahdi {
     private static void HalMenNaserenYansoroni(Node node, Node enemy) {
         if (LetsAttackTogether(node, enemy))
             return;
-
+/*
         if (HelpMeMyFriends(node, enemy))
             return;
-
+*/
         Mahdi.Escape(node);
     }
 

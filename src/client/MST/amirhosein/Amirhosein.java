@@ -60,6 +60,9 @@ public class Amirhosein
                         {
                             continue;
                         }
+                        Node mmm = Mahdi.MovingSrcWhatIsDest(uNeighbours[i]);
+                        if ((mmm != null) && (mmm.getOwner() == -1))
+                            continue;
                         mark[uNeighbours[i].getIndex()] = 1;
                         par[uNeighbours[i].getIndex()] = u;
                         if(uNeighbours[i].getOwner() != world.getMyID() && isIt(uNeighbours[i] , criticalNodes))
