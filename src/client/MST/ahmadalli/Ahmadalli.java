@@ -155,5 +155,9 @@ public class Ahmadalli {
             System.out.println(text);
     }
 
+    public static int getEnemyId(World world) {
+        return 1 - world.getMyID();
+    }
+
 }
 
