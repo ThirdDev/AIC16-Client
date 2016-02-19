@@ -217,18 +217,18 @@ public class Mahdi {
     public static void CancelMovementSrc(Node n) {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).source == n) {
-                attacks.remove(attacks.get(i));
                 Ahmadalli.log("** CancelMovementSrc: from " + attacks.get(i).source.getIndex()
-                                + " to " + attacks.get(i).dest.getIndex() + ", count = " + attacks.get(i).count, 2);
+                        + " to " + attacks.get(i).dest.getIndex() + ", count = " + attacks.get(i).count, 2);
+                attacks.remove(attacks.get(i));
             }
     }
 
     public static void CancelMovementDest(Node n) {
         for (int i = 0; i < attacks.size(); i++)
             if (attacks.get(i).dest == n) {
-                attacks.remove(attacks.get(i));
                 Ahmadalli.log("** CancelMovementSrc: from " + attacks.get(i).source.getIndex()
                         + " to " + attacks.get(i).dest.getIndex() + ", count = " + attacks.get(i).count, 2);
+                attacks.remove(attacks.get(i));
             }
     }
 
