@@ -16,93 +16,57 @@ import java.util.*;
 public class Amirhosein
 {
 
-    public static ArrayList<Node> crave(World world, ArrayList<Node> borderNodes)
+    public static boolean isIt (Node node , ArrayList<Node> nodeList)
     {
-
-        int nextTurnVals[] = new int[200];
-        for (int j = 0; j < world.getMyNodes().length; j++)
+        for (int i = 0; i < nodeList.size(); i++)
         {
-            Node u = world.getMyNodes()[j];
-            nextTurnVals[u.getIndex()] = u.getArmyCount();
-        }
-
-        int mark[] = new int[200];
-        for (int j = 0; j < world.getMyNodes().length; j++)
-        {
-            mark[j] = 0;
-        }
-        int moved[] = new int[200];
-        for (int j = 0; j < world.getMyNodes().length; j++)
-        {
-            moved[j] = 0;
-        }
-        Queue<Node> q = new LinkedList<Node>();
-        for (int i = 0; i < borderNodes.size(); i++)
-        {
-            q.clear();
-            boolean flag = false;
-            Node chief = borderNodes.get(i);
-            q.add(chief);
-            mark[chief.getIndex()] = 1;
-            int dis[] = new int[150];
-            for (int j = 0; j < 150; j++)
+            if(node.getIndex() == nodeList.get(i).getIndex())
             {
-                dis[j] = 0;
+                return true;
             }
-            while (q.size() > 0 && !flag)
+        }
+        return false;
+    }
+    public static ArrayList<Node> crave(World world, Node src, int craveMeter, ArrayList <Node> borderNodes, ArrayList<Node> criticalNodes)
+    {
+        int mapSize = world.getMap().getNodes().length;
+        int[] mark = new int[mapSize];
+
+        for (int i  = 0 ; i < mapSize ; i++)
+        {
+            mark[i] = 0;
+        }
+
+        Node[] par = new Node[mapSize];
+
+        Queue <Node> q = new LinkedList<>();
+        q.add(src);
+        mark[src.getIndex()] = 1;
+
+        while(q.size()>0 || craveMeter>0)
+        {
+            Node u = q.poll();
+            if(!isIt(u,criticalNodes) || !isIt(u,borderNodes) )
             {
-                Node u = q.poll();
-                mark[u.getIndex()] = 1;
-                for (int j = 0; j < u.getNeighbours().length; j++)
+                Node[] uNeighbours = u.getNeighbours();
+                for (int i = 0; i < uNeighbours.length; i++)
                 {
-                    Node neighbour = u.getNeighbours()[j];
-                    if (neighbour.getOwner() == world.getMyID() && dis[neighbour.getIndex()] == 0)
+                    if (mark[uNeighbours[i].getIndex()] == 0)
                     {
-                        q.add(neighbour);
-                        mark[neighbour.getIndex()] = 1;
-                        dis[neighbour.getIndex()] = dis[u.getIndex()] + 1;
-                        if (!Ahmadalli.isBorderNode(neighbour)) //TODO: Leave a Minimum of one
+                        if (isIt(u,borderNodes) && isIt(uNeighbours[i] , borderNodes))
                         {
-                            if (nextTurnVals[neighbour.getIndex()] > constants.minimumNumberOfUnitsLeftInEachNode)
-                            {
-                                nextTurnVals[neighbour.getIndex()] = constants.minimumNumberOfUnitsLeftInEachNode;
-                                nextTurnVals[u.getIndex()] += neighbour.getArmyCount() - constants.minimumNumberOfUnitsLeftInEachNode;
-                                if (moved[neighbour.getIndex()] == 0)
-                                {
-                                    moved[neighbour.getIndex()] = 1;
-                                    Ahmadalli.log("method: amirhosein.crave - section: getFromNonBoarder - from:" + neighbour.getIndex() +
-                                            " - to: " + u.getIndex() + " - army: " + (neighbour.getArmyCount() - constants.minimumNumberOfUnitsLeftInEachNode));
-                                    //world.moveArmy(neighbour, u, neighbour.getArmyCount() - constants.minimumNumberOfUnitsLeftInEachNode);
-                                    Mahdi.Movement(neighbour,u,neighbour.getArmyCount()-constants.minimumNumberOfUnitsLeftInEachNode);
-                                    flag = true;
-                                    break;
-                                }
-                            }
+                            continue;
                         }
-                        else
-                        {
-                            /**
-                            if (nextTurnVals[neighbour.getIndex()] > Mahdi.getMinimumRecommendedForceInBorders())
-                            {
-                                nextTurnVals[neighbour.getIndex()] = Mahdi.getMinimumRecommendedForceInBorders();
-                                nextTurnVals[u.getIndex()] += neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders();
-                                if (moved[neighbour.getIndex()] == 0)
-                                {
-                                    moved[neighbour.getIndex()] = 1;
-                                    Ahmadalli.log("method: amirhosein.crave - section: getFromBorder - from:" + neighbour.getIndex() +
-                                            " - to: " + u.getIndex() + " - army: " + (neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders()));
-                                    //world.moveArmy(neighbour, u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
-                                    Mahdi.Movement(neighbour,u, neighbour.getArmyCount() - Mahdi.getMinimumRecommendedForceInBorders());
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                            /**/
-                        }
+                        mark[uNeighbours[i].getIndex()] = 1;
+                        par[uNeighbours[i].getIndex()] = u;
+                        q.add(uNeighbours[i]);
+
                     }
                 }
             }
         }
+
+
         ArrayList<Node> ret = new ArrayList<Node>();
         Graph map = world.getMap();
         for (int i = 0; i < map.getNodes().length; i++)
