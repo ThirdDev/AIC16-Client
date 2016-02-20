@@ -151,7 +151,7 @@ public class Ahmadalli {
     }
 
     public static void log(String text, int level) {
-        if (level <= 2)
+        if (level <= 0)
             System.out.println(text);
     }
 

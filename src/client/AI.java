@@ -26,50 +26,50 @@ public class AI {
         Ahmadalli.log("--------");
         Ahmadalli.log("Cycle #" + Integer.toString(world.getTurnNumber()));
         Ahmadalli.log("We currently have " + world.getMyNodes().length + " nodes.");
-        //try {
-        Mahdi.InitMovements();
-
-        ArrayList<ArrayList<Node>> clusters = Mahdi.GetOurClusters(world);
-        Ahmadalli.log("AI: Mahdi.GetOurClusters finished, found " + clusters.size() + " clusters.");
-
-        ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
-        Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
-
-        ArrayList<Node> worthwhileBorderNodes = Mahdi.getWorthwhileBorderNodes(world, borderNodes);
-        Ahmadalli.log("AI: Mahdi.getWorthwhileBorderNodes finished.");
-
-        ArrayList<Node> untouchedNodes = new ArrayList<>(Arrays.asList(world.getMyNodes())); //Amirhosein.crave(world, worthwhileBorderNodes);
-        //Ahmadalli.log("AI: Amirhossein.crave finished.");
-
-        Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
-        Ahmadalli.log("AI: Amirhossein.findDis finished.");
-
-        Map<Node, Mahdi.NodeBFSOutput> nearestEnemyDistance = Mahdi.FindNearestEnemyDistance(world, borderNodes);
-        Ahmadalli.log("AI: FindNearestEnemyDistance for borderNodes (count = " + borderNodes.size() + ") finished.");
-
-        for (Node node : borderNodes) {
-            Mahdi.MarzbananBePish(world, node, clusters);
-        }
-        Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
-
         try {
-            Mahdi.taneLash(world, untouchedNodes, borderNodes, nearestEnemyDistance);
+            Mahdi.InitMovements();
 
+            ArrayList<ArrayList<Node>> clusters = Mahdi.GetOurClusters(world);
+            Ahmadalli.log("AI: Mahdi.GetOurClusters finished, found " + clusters.size() + " clusters.");
+
+            ArrayList<Node> borderNodes = Ahmadalli.getBorderNodes(world);
+            Ahmadalli.log("AI: Ahmadalli.getBorderNodes finished.");
+
+            ArrayList<Node> worthwhileBorderNodes = Mahdi.getWorthwhileBorderNodes(world, borderNodes);
+            Ahmadalli.log("AI: Mahdi.getWorthwhileBorderNodes finished.");
+
+            ArrayList<Node> untouchedNodes = new ArrayList<>(Arrays.asList(world.getMyNodes())); //Amirhosein.crave(world, worthwhileBorderNodes);
+            //Ahmadalli.log("AI: Amirhossein.crave finished.");
+
+            Map<Node, Integer> minDistanceToBorder = Amirhosein.findDis(world, borderNodes);
+            Ahmadalli.log("AI: Amirhossein.findDis finished.");
+
+            Map<Node, Mahdi.NodeBFSOutput> nearestEnemyDistance = Mahdi.FindNearestEnemyDistance(world, borderNodes);
+            Ahmadalli.log("AI: FindNearestEnemyDistance for borderNodes (count = " + borderNodes.size() + ") finished.");
+
+            for (Node node : borderNodes) {
+                Mahdi.MarzbananBePish(world, node, clusters);
+            }
+            Ahmadalli.log("AI: Mahdi.GoGrabOwnerlessNodes and Ahmadalli.attackWeakestNearEnemy called for all border nodes.");
+
+            try {
+                Mahdi.taneLash(world, untouchedNodes, borderNodes, nearestEnemyDistance);
+
+            } catch (Exception ex) {
+                Ahmadalli.log("EXCEPTION in taneLash. Calling taneLashOld...");
+                Mahdi.taneLashOld(world, untouchedNodes, minDistanceToBorder);
+            }
+            Ahmadalli.log("AI: Mahdi.taneLash finished.");
+
+            Mahdi.ModafeaneHaram(world);
+            Ahmadalli.log("AI: Mahdi.ModafeaneHaram finished.");
         } catch (Exception ex) {
-            Ahmadalli.log("EXCEPTION in taneLash. Calling taneLashOld...");
-            Mahdi.taneLashOld(world, untouchedNodes, minDistanceToBorder);
-        }
-        Ahmadalli.log("AI: Mahdi.taneLash finished.");
-
-        Mahdi.ModafeaneHaram(world);
-        Ahmadalli.log("AI: Mahdi.ModafeaneHaram finished.");
-/*        } catch (Exception ex) {
             Ahmadalli.log("EXCEPTION @ AI.java. " + ex.getMessage());
             layer1Move(world);
-        }*/
+        }
 
         Mahdi.ApplyMovements(world);
-        Ahmadalli.log(world.getTurnTimePassed() + "ms" , 0 );
+        Ahmadalli.log(world.getTurnTimePassed() + "ms", 0);
     }
 
     private void layer1Move(World world) {
